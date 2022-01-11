@@ -6,10 +6,16 @@ Cokecodes is designed to be a **in-browser** Web/App development environment. It
 ## Tools and Applictions
 Cokecodes currently has a **desktop** and 3 major PWA web app tools: **Terminal**, **Diskit** and **CCEditor**:  
   
+![ccedit](git/ccedit_01.png)
+*CCEditor*  
 - **CCEditor** is a full-functional **code text edtor**. It's based on the great work of **CodeMirror**. It got almost all the cool feaures that morden code editors have: **Syntax highlights**, **Code folding**, **Autocompletion**, **Linter integration**, **Search and replace**, **Bracket and tag matching**, **Marks and todos** and more.  
 
+![ccedit](git/terminal_01.png)
+*Terminal*  
 - **Terminal** is a UNIX terminal like CLI enironment which can run commands (ls, cwd, cd, cp, rm...), apps and scripts.  
   
+![ccedit](git/diskit_01.png)
+*Diskit*  
 - **Diskit** is the file manager of CokeCokes system. It works like just **File Explorer** in Windows or **Finder** in MacOS.
 
   
