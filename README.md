@@ -23,9 +23,10 @@ Cokecodes currently has a **desktop** and 3 major PWA web app tools: **Terminal*
 
   
 ## Why work in browser?
+With new features coming out, morden browsers can do much more than just browsing. PWA web apps will take more roles from native apps. Why not our coding environment?  
 - **No system contamination**: Setup a new project work environment won't install anything or make any changes out side the browser. Your computer/ device always stay clean. 
 
-- **Domain sandboxed**: You can isolate different projects to avoid annoying package/tool version conflict which do happens a lot these days. Remove a sandbox cleans everthing, no trush left behind.
+- **Domain sandboxed**: You can isolate different projects to avoid annoying package/tool version conflict which do happens a lot these days. Remove a sandbox cleans everthing, no trush left behind. It's like you have a dedicate computer for each of your project in the same time!
 
 - **Same experience**: CokeCodes' tool and applications works just as good as similar tools run in native. They launch in a blink, and run smoothly the in browsers. All tools are open sourced and support addons to expand their features.   
 
@@ -42,7 +43,7 @@ Cokecodes currently has a **desktop** and 3 major PWA web app tools: **Terminal*
 CokeCodes' system, applictions and command tools are all write in pure Javascript and all **open source**. You can easily make your own tools, addons even applications to aid your work and share with others. You can host your own cokecodes server, too.
 
 ## Incomming more
-This version of Cokecodes is just a concept preview. Current Cokecodes is in it's very early stage. So I am not recommanding to use CokeCodes as real development tool for now. More features are incomming, check the **Roadmap** below and stay tunned!
+This version of CokeCodes is just a concept preview. So I am not recommanding to use CokeCodes as real development tool for now. More features are incomming, check the **Roadmap** below and stay tunned!
 
 ## Dev road map:
 - Better mobile devices (phones and tablets) support
