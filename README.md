@@ -6,17 +6,20 @@ Cokecodes is designed to be a **in-browser** Web/App development environment. It
 ## Tools and Applictions
 Cokecodes currently has a **desktop** and 3 major PWA web app tools: **Terminal**, **Diskit** and **CCEditor**:  
   
-![ccedit](git/ccedit_01.png)
-*CCEditor*  
-- **CCEditor** is a full-functional **code text edtor**. It's based on the great work of **CodeMirror**. It got almost all the cool feaures that morden code editors have: **Syntax highlights**, **Code folding**, **Autocompletion**, **Linter integration**, **Search and replace**, **Bracket and tag matching**, **Marks and todos** and more.  
+### CCEditor  
+![ccedit](git/ccedit_01.png)  
 
-![ccedit](git/terminal_01.png)
-*Terminal*  
-- **Terminal** is a UNIX terminal like CLI enironment which can run commands (ls, cwd, cd, cp, rm...), apps and scripts.  
+**CCEditor** is a full-functional **code text edtor**. It's based on the great work of **CodeMirror**. It got almost all the cool feaures that morden code editors have: **Syntax highlights**, **Code folding**, **Autocompletion**, **Linter integration**, **Search and replace**, **Bracket and tag matching**, **Marks and todos** and more.  
+
+### Terminal  
+![ccedit](git/terminal_01.png)  
+
+**Terminal** is a UNIX terminal like CLI enironment which can run commands (ls, cwd, cd, cp, rm...), apps and scripts.  
   
-![ccedit](git/diskit_01.png)
-*Diskit*  
-- **Diskit** is the file manager of CokeCokes system. It works like just **File Explorer** in Windows or **Finder** in MacOS.
+### Diskit  
+![ccedit](git/diskit_01.png)  
+
+**Diskit** is the file manager of CokeCokes system. It works like just **File Explorer** in Windows or **Finder** in MacOS.
 
   
 ## Why work in browser?
@@ -58,5 +61,5 @@ This version of Cokecodes is just a concept preview. Current Cokecodes is in it'
 - **Cody**: powerful WYSWYG UI-Builder tool behind the major CokeCodes apps.
 
 ## Like the idea?
-Cokecodes is my hobby project. Although it's very simple and rough, cokecodes is indeed working and looks really promising. My earlier web/app development tool chain is node+WebStorm, now my work is done 90% in browser. Hope with new incomming features, it hits 100%!  
+CokeCodes is my hobby project. Although very simple and rough, it is indeed working and looks really promising. My earlier web/app development tool chain is node+WebStorm, now my work is done 90% in browser. Hope with new incomming features, it hits 100%!  
 If you like to **work in browser**, have ideas to improve, welcom to contact at: pxavdpro@gmail.com.
