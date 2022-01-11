@@ -1,9 +1,9 @@
 # CokeCodes conecpt preview
----
+
 ## What is Cokecodes?
 Cokecodes is designed to be a **in-browser** Web/App development environment. It brings the essence of morden OS (like MacOS, Windows, Unix) to the browser. Developers can do all works within browser. Even it's in such early stage, 90% of my coding work is done in browser with CokeCodes tools now.  
   
-## Tools/ Applictions
+## Tools and Applictions
 Cokecodes currently has a **desktop** and 3 major PWA web app tools: **Terminal**, **Diskit** and **CCEditor**:  
   
 - **CCEditor** is a full-functional **code text edtor**. It's based on the great work of **CodeMirror**. It got almost all the cool feaures that morden code editors have: **Syntax highlights**, **Code folding**, **Autocompletion**, **Linter integration**, **Search and replace**, **Bracket and tag matching**, **Marks and todos** and more.  
