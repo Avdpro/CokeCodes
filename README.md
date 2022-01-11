@@ -18,7 +18,7 @@ Cokecodes currently has a **desktop** and 3 major PWA web app tools: **Terminal*
 
 - **Domain sandboxed**: You can isolate different projects to avoid annoying package/tool version conflict which do happens a lot these days. Remove a sandbox cleans everthing, no trush left behind.
 
-- **Same experience**: CokeCodes' tool and applications works just as good as similar tools run in native. They launch in a blink, and run smoothly the in browsers. All tools is open sourced and support addons to expand their features.   
+- **Same experience**: CokeCodes' tool and applications works just as good as similar tools run in native. They launch in a blink, and run smoothly the in browsers. All tools are open sourced and support addons to expand their features.   
 
 - **Any device, any time**: Browsers are best cross-platform-environment out there. Cokecodes can run on all morden major browsers on desktop or mobile devices. With it's inbuilt cloud feature, you can easily pick up your work any where, any time. 
 
