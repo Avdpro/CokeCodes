@@ -51,6 +51,7 @@ This version of CokeCodes is just a concept preview. So I am not recommanding to
 	- More documents  
 	- Disk member access
 	- Python support
+	- node naked support
 	
 - **File system/ Diskit**:
 	- **watch** changes callback
@@ -63,14 +64,20 @@ This version of CokeCodes is just a concept preview. So I am not recommanding to
 	- Support more coding language (PY/ C,C++ /Java...)
 	- Support collaborate coding
 	- **Addon-Cody**: powerful WYSWYG UI-Builder tool behind the major CokeCodes apps.
+
+- **Terminal**
+	- Support |grep and > operation
+	- Upgrade commands' usage more like UNIX
+	- Port more commands from UNIX
 	
 - **Tools, utility packages**:
 	- Port **Babel**, **webpack** and more utilities to have better support React/ VUE projects.
 	- Server mockup/develop mechanism with database simulator
-	- Self-host cokecodes server setup.
+	- Self-host CokeCodes server setup.
 	- Port **Emscripten** to enable C++ and other WASM developments
 	- Mobile app wrap and publish tool
 	- **CCCompare**: "Beyond Compare" like comapre application, "Beyond Compare" is one of my favorite apps for all times.
+
 ## Like the idea?
 CokeCodes is my hobby project. Although very simple and rough, it is indeed working and looks really promising. My earlier web/app development tool chain is node+WebStorm, now my work is done 90% in browser. Hope with new incomming features, it hits 100%!  
 If you like to **work in browser**, have ideas to improve, welcom to contact at: pxavdpro@gmail.com.
