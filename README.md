@@ -46,21 +46,31 @@ CokeCodes' system, applictions and command tools are all write in pure Javascrip
 This version of CokeCodes is just a concept preview. So I am not recommanding to use CokeCodes as real development tool for now. More features are incomming, check the **Roadmap** below and stay tunned!
 
 ## Dev road map:
-- Better mobile devices (phones and tablets) support
-- Port packaging tools like **webpack** and **rollup**
-- More documents
-- Self-host cokecodes server setup
-- Sync disk with locale folder
-- File system **watch** feature
-- Sync file access solution
-- Server mockup/develop mechanism with database simulator
-- Sync disk with other repository like GitHub, DropBox
-- CCEdit support more coding language (PY/ C,C++ /Java...)
-- Port **Emscripten** to enable C++ and other WASM developments
-- Python support
-- Mobile app wrap and publish
-- **Cody**: powerful WYSWYG UI-Builder tool behind the major CokeCodes apps.
-
+- **Overall**:
+	- Better mobile devices (phones and tablets) support
+	- More documents  
+	- Disk member access
+	- Python support
+	
+- **File system/ Diskit**:
+	- **watch** changes callback
+	- File **sync access** solution
+	- Sync disk with other repository like GitHub, DropBox
+	- Sync disk with locale folder  
+	
+- **CCEdit**:
+	- Settings, themes, night mode...
+	- Support more coding language (PY/ C,C++ /Java...)
+	- Support collaborate coding
+	- **Addon-Cody**: powerful WYSWYG UI-Builder tool behind the major CokeCodes apps.
+	
+- **Tools, utility packages**:
+	- Port **Babel**, **webpack** and more utilities to have better support React/ VUE projects.
+	- Server mockup/develop mechanism with database simulator
+	- Self-host cokecodes server setup.
+	- Port **Emscripten** to enable C++ and other WASM developments
+	- Mobile app wrap and publish tool
+	- **CCCompare**: "Beyond Compare" like comapre application, "Beyond Compare" is one of my favorite apps for all times.
 ## Like the idea?
 CokeCodes is my hobby project. Although very simple and rough, it is indeed working and looks really promising. My earlier web/app development tool chain is node+WebStorm, now my work is done 90% in browser. Hope with new incomming features, it hits 100%!  
 If you like to **work in browser**, have ideas to improve, welcom to contact at: pxavdpro@gmail.com.
