@@ -74,6 +74,7 @@ This version of CokeCodes is just a concept preview. It just proves a all-in-bro
 	- Sync disk with locale folder  
 	
 - **CCEdit**:
+	- Migrate to **CodeMirror 6** 
 	- Settings, themes, night mode...
 	- Support more coding language (PY/ C,C++ /Java...)
 	- Support collaborate coding
