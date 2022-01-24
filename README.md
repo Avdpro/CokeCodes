@@ -9,7 +9,13 @@ You can review current CokeCodes at [www.cokecodes.com](https://www.cokecodes.co
 With new features keep coming out, morden browsers can do much more than just browsing. PWA web apps already taking more roles from native apps. Why not our coding environment?  
 - **No system contamination**: Setup a new project work environment won't install anything or make any changes out side the browser. Your computer/ device always stay clean. 
 
-- **Domain sandboxed**: You can isolate different projects to avoid annoying package/tool version conflict which do happens a lot these days. Remove a sandbox cleans everthing, no trush left behind. It's like you have a dedicate computer for each of your project in the same time!
+- **Domain sandboxed**: You can isolate different projects to avoid annoying package/tool version conflict which do happens a lot these days. Remove a sandbox cleans everthing, no trush left behind. It's like you have a dedicate computer for each of your project in the same time!  
+Currently cokecodes.com has serveral sandbox you can play with:
+   - [sandbox001.cokecodes.com](https://sandbox001.cokecodes.com)
+   - [sandbox002.cokecodes.com](https://sandbox002.cokecodes.com)
+   - [sandbox003.cokecodes.com](https://sandbox003.cokecodes.com)
+   - [sandbox004.cokecodes.com](https://sandbox004.cokecodes.com)
+   - [sandbox005.cokecodes.com](https://sandbox005.cokecodes.com)
 
 - **Same experience**: CokeCodes' tool and applications works just as good as similar tools run in native. They launch in a blink, and run smoothly the in browsers.  Especially comparing to apps based on node like runtimes, browsers' Javascript VM can be even better.   
 
