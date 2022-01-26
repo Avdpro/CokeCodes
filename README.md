@@ -66,11 +66,12 @@ This version of CokeCodes is just a concept preview. It just proves a all-in-bro
 - **Overall**:
 	- Better mobile devices (phones and tablets) support
 	- Better JSX/ TS edit support
+	- **HMR** support for React and VUE 
 	- More documents  
-	- Disk member access
-	- Port **Emscripten** to enable **C++** and other WASM developments
+	- Cloud disk allow member access
+	- Port **Emscripten** or **CLang** to enable **C++** and other WASM developments
 	- **Python** support based on **Pyodide**
-	- rollup watch
+	- rollup watch feature
 	- node naked support
 	
 - **File system/ Diskit**:
@@ -82,7 +83,7 @@ This version of CokeCodes is just a concept preview. It just proves a all-in-bro
 - **CCEdit**:
 	- Migrate to **CodeMirror 6** 
 	- Settings, themes, night mode...
-	- Support more coding language (PY/ C,C++ /Java...)
+	- Support more coding language (JSX, TS, PY, C/C++, Java...)
 	- Support collaborate coding
 	- **Addon-Cody**: powerful WYSWYG UI-Builder tool behind the major CokeCodes apps.
 
@@ -96,7 +97,7 @@ This version of CokeCodes is just a concept preview. It just proves a all-in-bro
 	- Server mockup/develop mechanism with database simulator
 	- Self-host CokeCodes server setup guide.
 	- Mobile app wrap and publish tool
-	- **CCCompare**: "Beyond Compare" like comapre application, "Beyond Compare" is one of my favorite apps for all times.
+	- **CCCompare**: "Beyond Compare" like compare application, "Beyond Compare" is one of my favorite apps for all times.
 
 ## Like the idea?
 CokeCodes is a hobby project. Although very simple and rough, it is indeed working and looks really promising. My earlier web/app development tool chain is node+WebStorm, now my work is done 90% in browser. Hope with new incomming features, it hits 100%!  
