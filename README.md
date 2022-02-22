@@ -1,7 +1,8 @@
 # CokeCodes conecpt preview
 
 ## What is CokeCodes?
-CokeCodes is designed to be a **in-browser** Web/App development environment. It brings the essence of morden OS (like MacOS, Windows, Unix) to the browser. Developers can do all works within browser. Even it's in such early stage, 90% of my coding work is done in browser with CokeCodes tools now.
+CokeCodes brings the essence of modern OS (like MacOS, Windows, Linux) into browsers. With tool-chain in this **OS-in-Browser**, developer can do all works within the browser.   
+Even it's in such early stage, most of CodeCodes' coding is in browser.  
 
 You can review current CokeCodes at [www.cokecodes.com](https://www.cokecodes.com)  
   
