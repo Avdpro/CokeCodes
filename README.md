@@ -9,8 +9,8 @@ You can review current CokeCodes at [www.cokecodes.com](https://www.cokecodes.co
 With new features keep coming out, morden browsers can do much more than just browsing. PWA web apps already taking more roles from native apps. Why not our coding environment?  
 - **No system contamination**: Setup a new project work environment won't install anything or make any changes out side the browser. Your computer/ device always stay clean. 
 
-- **Domain sandboxed**: You can isolate different projects to avoid annoying package/tool version conflict which do happens a lot these days. Remove a sandbox cleans everthing, no trush left behind. It's like you have a dedicate computer for each of your project in the same time!  
-Currently cokecodes.com has serveral sandbox you can play with:
+- **Domain Sandboxed**: Cause of the browser' nature, they are strongly isolated. You can think the **sand boxes as computers**. You can have **dedicate computer for each project**. Start and switch between them is lightning fast. Removing a sandbox cleans everything, so neat.   
+Currently, beside *www*, **cokecodes.com** has serveral sandbox you can play with:
    - [sandbox001.cokecodes.com](https://sandbox001.cokecodes.com)
    - [sandbox002.cokecodes.com](https://sandbox002.cokecodes.com)
    - [sandbox003.cokecodes.com](https://sandbox003.cokecodes.com)
