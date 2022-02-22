@@ -4,7 +4,7 @@
 CokeCodes brings the essence of modern OS (like MacOS, Windows, Linux) into browsers. With tool-chain in this **OS-in-Browser**, developer can do all works within the browser.   
 Even it's in such early stage, most of CodeCodes' coding is in browser.  
 
-You can review current CokeCodes at [www.cokecodes.com](https://www.cokecodes.com)  
+You can review current CokeCodes progress at: [www.cokecodes.com](https://www.cokecodes.com)  
   
 ## Why work in browser?
 With new features keep coming out, morden browsers can do much more than just browsing. PWA web apps already taking more roles from native apps. Why not our coding environment?  
