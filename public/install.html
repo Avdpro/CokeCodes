@@ -41,14 +41,7 @@
 <input type="file" id="JAXFileInput" style="opacity: 0; position: absolute; top: -100px"/>
 <a id="JAXFileDownload" href="" style="opacity: 0; position: absolute; top: -100px"> </a>
 <script type="text/javascript">
-	document.body.addEventListener('touchmove',
-		function (e) {
-			e.preventDefault();
-		},
-		{passive: false}
-	);
-</script>
-<script type="text/javascript">/*!
+	/*!
 
 JSZip v3.6.0 - A JavaScript class for generating and reading zip files
 <http://stuartk.com/jszip>
@@ -399,7 +392,7 @@ let callAfter;
 	};
 }
 
-var JAXEnv,__Proto$k,$JXV,JAXStateProxy,$V;
+var JAXEnv,__Proto$j,$JXV,JAXStateProxy,$V;
 
 var curHasher,hasherList=[];
 var curHudView,hudViewList=[];
@@ -458,6 +451,7 @@ JAXEnv=function(jaxDiv)
 	this.onMouseMoves=[];
 	this.curDrag=null;
 	this.thisUpdateProc=this.update.bind(this);
+	document.addEventListener('mousedown',this.OnMouseDown.bind(this),false);//注册鼠标按下消息，在冒泡阶段
 	document.addEventListener('mouseup',this.OnMouseUp.bind(this),false);//注册鼠标抬起消息，在冒泡阶段
 	document.addEventListener('mousemove',this.OnMouseMove.bind(this),false);//注册鼠标移动消息，在冒泡阶段
 
@@ -507,7 +501,7 @@ JAXEnv=function(jaxDiv)
 	this.webFileDownload=document.getElementById("JAXFileDownload");
 };
 
-__Proto$k=JAXEnv.prototype={};
+__Proto$j=JAXEnv.prototype={};
 
 //***************************************************************************
 //文件路径工具函数:
@@ -819,7 +813,7 @@ __Proto$k=JAXEnv.prototype={};
 //***************************************************************************
 {
 	//-----------------------------------------------------------------------
-	__Proto$k.signUpdate=function(hud)
+	__Proto$j.signUpdate=function(hud)
 	{
 		if(hud){
 			updateList.push(hud);
@@ -839,7 +833,7 @@ __Proto$k=JAXEnv.prototype={};
 	};
 
 	//-----------------------------------------------------------------------
-	__Proto$k.update=function()
+	__Proto$j.update=function()
 	{
 		let list,hud;
 
@@ -868,7 +862,7 @@ __Proto$k=JAXEnv.prototype={};
 //有关AF回调函数的函数:
 //***************************************************************************
 {
-	__Proto$k.callAfter=JAXDataObj.callAfter;
+	__Proto$j.callAfter=JAXDataObj.callAfter;
 }
 
 //***************************************************************************
@@ -903,13 +897,13 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//生成一个序号类的HashID:
-	__Proto$k.genIncHash = function () {
+	__Proto$j.genIncHash = function () {
 		return "INC"+(nextIncHash++);
 	};
 
 	//---------------------------------------------------------------------------
 	//生成一个时间类的HashID:
-	JAXEnv.genTimeHash=__Proto$k.genTimeHash = function () {
+	JAXEnv.genTimeHash=__Proto$j.genTimeHash = function () {
 		var time,hash;
 		time=Date.now();
 		hash=Number(time).toString(32);
@@ -925,7 +919,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//纪录(压入)当前的ObjHasher
-	__Proto$k.pushObjHasher = function (obj) {
+	__Proto$j.pushObjHasher = function (obj) {
 		if (curHasher) {
 			hasherList.push(curHasher);
 		}
@@ -934,7 +928,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//弹出当前的ObjHasher，
-	__Proto$k.popObjHasher = function (obj) {
+	__Proto$j.popObjHasher = function (obj) {
 		if(!obj || obj===curHasher){
 			curHasher = hasherList.pop();
 		}
@@ -942,7 +936,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//给当前的ObjHasher增加一个纪录的对象
-	__Proto$k.addHashObj = function (id,obj) {
+	__Proto$j.addHashObj = function (id,obj) {
 		if (curHasher) {
 			curHasher[id]=obj;
 		}
@@ -950,7 +944,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//纪录(压入)当前的View
-	__Proto$k.pushHudView = function (obj) {
+	__Proto$j.pushHudView = function (obj) {
 		if (curHudView) {
 			hudViewList.push(curHudView);
 		}
@@ -959,20 +953,20 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//弹出当前的HudView，
-	__Proto$k.popHudView = function (obj) {
+	__Proto$j.popHudView = function (obj) {
 		curHudView = hudViewList.pop();
 	};
 
 	//---------------------------------------------------------------------------
 	//得到当前的HudView，
-	__Proto$k.getHudView = function () {
+	__Proto$j.getHudView = function () {
 		return curHudView;
 	};
 
 
 	//---------------------------------------------------------------------------
 	//纪录(压入)当前的HudState
-	__Proto$k.pushHudState = function (obj) {
+	__Proto$j.pushHudState = function (obj) {
 		if (curHudState) {
 			hudStateList.push(curHudState);
 		}
@@ -981,25 +975,25 @@ __Proto$k=JAXEnv.prototype={};
 
 	//---------------------------------------------------------------------------
 	//弹出当前的HudState，
-	__Proto$k.popHudState = function (obj) {
+	__Proto$j.popHudState = function (obj) {
 		curHudState = hudStateList.pop();
 	};
 
 	//---------------------------------------------------------------------------
 	//得到当前的HudState，
-	__Proto$k.getCurHudState = function () {
+	__Proto$j.getCurHudState = function () {
 		return curHudState;
 	};
 
 	//---------------------------------------------------------------------------
 	//纪录新建的HudState
-	__Proto$k.newHudState = function (obj) {
+	__Proto$j.newHudState = function (obj) {
 		newHudStates.push(obj);
 	};
 
 	//---------------------------------------------------------------------------
 	//弹出当前的HudState，
-	__Proto$k.finNewHudStates = function (finalObj,updateList,traceList) {
+	__Proto$j.finNewHudStates = function (finalObj,updateList,traceList) {
 		var i,obj;
 		finalObj.setupState_(null,null,updateList,traceList);
 		for(i=0;i<newHudStates.length;i++){
@@ -1017,8 +1011,23 @@ __Proto$k=JAXEnv.prototype={};
 //***************************************************************************
 {
 	//-----------------------------------------------------------------------
+	//System handle mouse down:
+	__Proto$j.OnMouseDown = function (e) {
+		var drag;
+		//drag:
+		drag=this.curDrag;
+		if(drag){
+			let dx,dy;
+			dx=e.x-drag.ox;
+			dy=e.y-drag.oy;
+			drag.OnDone(e,0,dx,dy);
+			this.curDrag=null;
+		}
+	};
+	
+	//-----------------------------------------------------------------------
 	//注册一个需要知道鼠标抬起消息回调函数
-	__Proto$k.addOnMouseUp = function (func) {
+	__Proto$j.addOnMouseUp = function (func) {
 		if (func._inJAXMouseUp) {
 			return;
 		}
@@ -1028,13 +1037,13 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//注销一个需要知道鼠标抬起消息回调函数
-	__Proto$k.removeOnMouseUp = function (func) {
+	__Proto$j.removeOnMouseUp = function (func) {
 		func._inJAXMouseUp = 0;
 	};
-
+	
 	//-----------------------------------------------------------------------
 	//系统处理鼠标抬起消息:
-	__Proto$k.OnMouseUp = function (e) {
+	__Proto$j.OnMouseUp = function (e) {
 		var list, i, n, func,drag;
 		list = this.onMouseUps;
 		n = list.length;
@@ -1060,7 +1069,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//注册一个需要知道鼠标移动消息回调函数
-	__Proto$k.addOnMouseMove = function (func) {
+	__Proto$j.addOnMouseMove = function (func) {
 		if (func._inJAXMouseMove) {
 			return;
 		}
@@ -1070,13 +1079,13 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//注销一个需要知道鼠标移动消息回调函数
-	__Proto$k.removeOnMouseMove = function (func) {
+	__Proto$j.removeOnMouseMove = function (func) {
 		func._inJAXMouseMove = 0;
 	};
 
 	//-----------------------------------------------------------------------
 	//系统处理鼠标移动消息:
-	__Proto$k.OnMouseMove = function (e) {
+	__Proto$j.OnMouseMove = function (e) {
 		var list, i, n, func,drag;
 		list = this.onMouseMoves;
 		n = list.length;
@@ -1103,7 +1112,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//开始拖拽
-	__Proto$k.startDrag=function(e,stub){
+	__Proto$j.startDrag=function(e,stub){
 		if(this.curDrag){
 			let dx,dy;
 			dx=e.x-this.curDrag.ox;
@@ -1126,7 +1135,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//注册一个按键按下消息回调函数
-	__Proto$k.addOnKeyDown = function (func) {
+	__Proto$j.addOnKeyDown = function (func) {
 		if (func._inJAXKeyDown) {
 			return;
 		}
@@ -1136,13 +1145,13 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//注销一个按键按下消息回调函数
-	__Proto$k.removeOnKeyDown = function (func) {
+	__Proto$j.removeOnKeyDown = function (func) {
 		func._inJAXKeyDown = 0;
 	};
 
 	//-----------------------------------------------------------------------
 	//注册一个按键按下消息回调函数
-	__Proto$k.addOnKeyUp = function (func) {
+	__Proto$j.addOnKeyUp = function (func) {
 		if (func._inJAXKeyUp) {
 			return;
 		}
@@ -1152,13 +1161,13 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//注销一个按键按下消息回调函数
-	__Proto$k.removeOnKeyUp = function (func) {
+	__Proto$j.removeOnKeyUp = function (func) {
 		func._inJAXKeyUp = 0;
 	};
 
 	//-----------------------------------------------------------------------
 	//键盘按下消息
-	__Proto$k.OnKeyDown=function(e){
+	__Proto$j.OnKeyDown=function(e){
 		let list,i,n,func,appMajor;
 		appMajor=e.target===htmlBody;
 		list=OnKeyDowns;
@@ -1179,7 +1188,7 @@ __Proto$k=JAXEnv.prototype={};
 
 	//-----------------------------------------------------------------------
 	//键盘抬起消息
-	__Proto$k.OnKeyUp=function(e){
+	__Proto$j.OnKeyUp=function(e){
 		let list,i,n,func,appMajor;
 		appMajor=e.target===htmlBody;
 		list=OnKeyUps;
@@ -1473,1059 +1482,6 @@ __Proto$k=JAXEnv.prototype={};
 			}
 			traced=0;
 		};
-	};
-}
-
-class JAXDiskSysStore {
-	constructor() {
-		let dbName,storeName;
-		dbName="CokeCodes";
-		storeName="System";
-		this.storeName = storeName;
-		this._dbp = new Promise((resolve, reject) => {
-			const openreq = indexedDB.open(dbName, 1);
-			openreq.onerror = () => reject(openreq.error);
-			openreq.onsuccess = () => resolve(openreq.result);
-			// First time setup: create an empty object store
-			openreq.onupgradeneeded = () => {
-				openreq.result.createObjectStore(storeName);
-			};
-		});
-	}
-	_withIDBStore(type, callback) {
-		return this._dbp.then(db => new Promise((resolve, reject) => {
-			const transaction = db.transaction(this.storeName, type);
-			transaction.oncomplete = () => resolve();
-			transaction.onabort = transaction.onerror = () => reject(transaction.error);
-			callback(transaction.objectStore(this.storeName));
-		}));
-	}
-}
-let sysStore=null;
-
-class JAXDiskStore {
-	constructor(diskName, storeName = null) {
-		let dbName;
-		dbName="Disk_"+diskName;
-		storeName=storeName||diskName;
-		if(storeName!==diskName && storeName!=="info" && storeName!=="base"){
-			throw Error("JAXDiskStore: Store name error: "+storeName);
-		}
-		this.storeName = storeName;
-		this._dbp = new Promise((resolve, reject) => {
-			const openreq = indexedDB.open(dbName, 1);
-			openreq.onerror = () => reject(openreq.error);
-			openreq.onsuccess = () => resolve(openreq.result);
-			// First time setup: create an empty object store
-			openreq.onupgradeneeded = () => {
-				openreq.result.createObjectStore(diskName);
-				openreq.result.createObjectStore("info");
-				openreq.result.createObjectStore("base");
-			};
-		});
-	}
-	_withIDBStore(type, callback) {
-		return this._dbp.then(db => new Promise((resolve, reject) => {
-			const transaction = db.transaction(this.storeName, type);
-			transaction.oncomplete = () => resolve();
-			transaction.onabort = transaction.onerror = () => reject(transaction.error);
-			callback(transaction.objectStore(this.storeName));
-		}));
-	}
-	static systemStore(){
-		if(sysStore){
-			return sysStore;
-		}
-		sysStore=new JAXDiskSysStore();
-		return sysStore;
-	}
-}
-
-function get$1(key, store) {
-	let req;
-	return store._withIDBStore('readonly', store => {
-		req = store.get(key);
-	}).then(() => req.result);
-}
-function set$1(key, value, store) {
-	return store._withIDBStore('readwrite', store => {
-		store.put(value, key);
-	});
-}
-function del(key, store) {
-	return store._withIDBStore('readwrite', store => {
-		store.delete(key);
-	});
-}
-function clear(store) {
-	return store._withIDBStore('readwrite', store => {
-		store.clear();
-	});
-}
-function keys(store) {
-	const keys = [];
-	return store._withIDBStore('readonly', store => {
-		// This would be store.getAllKeys(), but it isn't supported by Edge or Safari.
-		// And openKeyCursor isn't supported by Safari.
-		(store.openKeyCursor || store.openCursor).call(store).onsuccess = function () {
-			if (!this.result)
-				return;
-			keys.push(this.result.key);
-			this.result.continue();
-		};
-	}).then(() => keys);
-}
-
-//import {Store, get, set, del, clear, keys, drop} from "../extern/idb-keyval.js"
-
-var JAXDisk,__Proto$j;
-
-//***************************************************************************
-//JAX's virtual disk system for web
-//***************************************************************************
-JAXDisk=function(diskName,majorDisk=null,code="")
-{
-	this.name=diskName;
-	//this.dbStore=new Store('JAXDisk_'+diskName, code?(code+"@"+diskName):diskName);
-	this.dbStore=new JAXDiskStore(diskName);
-	this.writeObj=null;
-	this.writeVsn=0;
-	if(majorDisk){
-		majorDisk.subDisk[code]=this;
-	}else {
-		JAXDisk.diskHash[diskName] = this;
-		this.subDisk={};
-	}
-	this.refCount=1;
-	this.infoStore=new JAXDiskStore(diskName, "info");
-	this.baseStore=new JAXDiskStore(diskName, "base");
-};
-
-//---------------------------------------------------------------------------
-//All available disk:
-//JAXDisk.sysStore=new Store('JAXDisk_', "System");
-JAXDisk.sysStore=JAXDiskStore.systemStore();
-JAXDisk.disks=null;
-JAXDisk.diskHash={};
-
-//***************************************************************************
-//JAXDisk static-system functions:
-//***************************************************************************
-{
-	//---------------------------------------------------------------------------
-	//Init jax-disk system.
-	JAXDisk.init=async function(refresh=false) {
-		if(JAXDisk.disks && !refresh){
-			return;
-		}
-		return get$1("disks", JAXDisk.sysStore).then(list => {
-			if (Array.isArray(list)) {
-				JAXDisk.disks = new Set(list);
-			} else {
-				JAXDisk.disks = new Set();
-				set$1("disks", [], JAXDisk.sysStore).then(() => {
-				});
-			}
-		});
-	};
-
-	//---------------------------------------------------------------------------
-	//Open an disk, may create new disk if param create is true:
-	JAXDisk.openDisk = async function (diskName, create) {
-		let disk;
-		if(!this.disks) {
-			await this.init();
-		}
-		disk = this.diskHash[diskName];
-		if (disk) {
-			//Check if the disk is still there:
-			try {
-				let list = await get$1("disks", JAXDisk.sysStore);
-				if (list.indexOf(diskName) >= 0) {
-					disk.refCount++;
-					return disk;
-				} else {
-					//The disk is removed.
-					this.disks.delete(diskName);
-					delete this.diskHash[diskName];
-					return null;
-				}
-			}catch(err) {
-				return null;
-			}
-		}
-		if (!this.disks.has(diskName)) {
-			let list=await get$1("disks",JAXDisk.sysStore);
-			if(list && list.indexOf(diskName)>=0){
-				this.disks.add(diskName);
-				return new JAXDisk(diskName);
-			}
-			if (create) {
-				return await JAXDisk.newDisk(diskName);
-			}
-			return null;
-		} else {
-			let list=await get$1("disks",JAXDisk.sysStore);
-			if(list && list.indexOf(diskName)>=0) {
-				return new JAXDisk(diskName);
-			}
-			//The disk is removed.
-			this.disks.delete(diskName);
-			delete this.diskHash[diskName];
-			return null;
-		}
-	};
-
-	//---------------------------------------------------------------------------
-	//Check if a disk is exist:
-	JAXDisk.diskExist = function (diskName,doubleCheck=0) {
-		var self=this;
-		return new Promise((resolve, reject) => {
-			if (self.disks.has(diskName)) {
-				resolve(1);
-			} else {
-				if(doubleCheck){
-					//再次检查数据库:
-					return get$1("disks",JAXDisk.sysStore).then(list=>{
-						if(list.indexOf(diskName)>=0){
-							JAXDisk.disks.add(diskName);
-							resolve(1);
-						}else {
-							resolve(0);
-						}
-					});
-				}else {
-					resolve(0);
-				}
-			}
-		});
-	};
-
-	//---------------------------------------------------------------------------
-	//Create a new disk:
-	JAXDisk.newDisk = function (diskName) {
-		let self=this,diskObj;
-		if(diskName.indexOf("/")>=0 || diskName.indexOf("*")>=0){
-			throw new Error("New disk: illegal name.");
-		}
-		return new Promise((resolve, reject) => {
-			if (self.disks.has(diskName)) {
-				self.openDisk(diskName,0).then((disk)=>{
-					resolve(disk);
-				});
-				return;
-			}
-			self.disks.add(diskName);
-			set$1('disks', Array.from(self.disks), self.sysStore).then(() => {
-				//let store=new Store('JAXDisk_'+diskName, diskName,1);
-				let store=new JAXDiskStore(diskName);
-				set$1(".",{},store).then(()=>{
-					diskObj=new JAXDisk(diskName);
-					resolve(diskObj);
-				});
-			});
-		});
-	};
-
-	//---------------------------------------------------------------------------
-	//Get a disk's info VO:
-	JAXDisk.getDiskInfo=async function(diskName){
-		let disk,infoStore;
-		if(!this.disks) {
-			await this.init();
-		}
-		disk=await this.openDisk(diskName,false);
-		if(!disk){
-			return null;
-		}
-		infoStore=disk.infoStore;
-		if(!infoStore){
-			//disk.infoStore=infoStore=new Store('JAXDiskInfo_'+diskName, diskName,1);
-			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
-		}
-		return await get$1("info",infoStore);
-	};
-
-	//---------------------------------------------------------------------------
-	//Set a disk's info VO:
-	JAXDisk.setDiskInfo=async function(diskName,info){
-		let disk,infoStore,pms;
-		if(!this.disks) {
-			await this.init();
-		}
-		disk=await this.openDisk(diskName);
-		if(!disk){
-			return null;
-		}
-		infoStore=disk.infoStore;
-		if(!infoStore){
-			//disk.infoStore=infoStore=new Store('JAXDiskInfo_'+diskName, diskName,1);
-			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
-			await set$1("info",info,infoStore);
-			return;
-		}
-		if(disk.writeObj){
-			await disk.writeObj;
-		}
-		pms=set$1("info",info,infoStore);
-		disk.writeObj=pms;
-		pms.writeVsn=disk.writeVsn++;
-		return pms;
-	};
-	
-	//---------------------------------------------------------------------------
-	//Get a disk's info VO:
-	JAXDisk.getDiskAttr=async function(diskName,attr){
-		let disk,infoStore;
-		if(!this.disks) {
-			await this.init();
-		}
-		disk=await this.openDisk(diskName,false);
-		if(!disk){
-			return null;
-		}
-		infoStore=disk.infoStore;
-		if(!infoStore){
-			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
-		}
-		return await get$1("attr_"+attr,infoStore);
-	};
-
-	//---------------------------------------------------------------------------
-	//Set a disk's attr:
-	JAXDisk.setDiskAttr=async function(diskName,key,val){
-		let disk,infoStore,pms;
-		if(!this.disks) {
-			await this.init();
-		}
-		disk=await this.openDisk(diskName);
-		if(!disk){
-			return null;
-		}
-		infoStore=disk.infoStore;
-		if(!infoStore){
-			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
-			await set$1("attr_"+key,val,infoStore);
-			return;
-		}
-		if(disk.writeObj){
-			await disk.writeObj;
-		}
-		pms=set$1("attr_"+key,val,infoStore);
-		disk.writeObj=pms;
-		pms.writeVsn=disk.writeVsn++;
-		return pms;
-	};
-
-	//---------------------------------------------------------------------------
-	//Remove a disk, clear the DB(but not drop the db)
-	JAXDisk.dropDisk = function (diskName) {
-		let self;
-		self=this;
-		return new Promise((resolve, reject) => {
-			self.openDisk(diskName).then(async diskObj=>{
-				if(diskObj){
-					if(diskObj.dbStore) {
-						await clear(diskObj.dbStore);
-						if(diskObj.infoStore) {
-							await clear(diskObj.infoStore);
-						}
-						if(diskObj.baseStore) {
-							await clear(diskObj.baseStore);
-						}
-					}
-					//await drop("Disk_"+diskName);
-				}
-				self.disks.delete(diskName);
-				delete self.diskHash[diskName];
-				set$1('disks', Array.from(self.disks), self.sysStore).then(resolve);
-			});
-		});
-	};
-
-	//---------------------------------------------------------------------------
-	//Get current disks list:
-	JAXDisk.getDisks=function(){
-		return Array.from(this.disks);
-	};
-	
-	//---------------------------------------------------------------------------
-	//Get current disk names
-	JAXDisk.getDiskNames=async function(){
-		let list,i,n,name,disk;
-		await this.init(true);
-		list=Array.from((this.disks));
-		n=list.length;
-		for(i=0;i<n;i++){
-			name=list[i];
-			disk=await JAXDisk.openDisk(name,0);
-			if(!disk){
-				list.splice(i,1);
-				JAXDisk.disks.delete(name);
-				delete JAXDisk.diskHash[name];
-				n--;i--;
-			}
-		}
-		return list;
-	};
-}
-
-JAXDisk.prototype=__Proto$j={};
-//***************************************************************************
-//JAXDisk member funcitons
-//***************************************************************************
-{
-	var divPath=function (dirPath)
-	{
-		let pos,dirName,upPath;
-		//Split dir upper and base:
-		if(dirPath.endsWith("/")){
-			dirPath=dirPath.substring(0,dirPath.length-1);
-		}
-		pos=dirPath.lastIndexOf("/");
-		if(pos>=0){
-			dirName=dirPath.substring(pos+1);
-			upPath=dirPath.substring(0,pos);
-		}else {
-			dirName=dirPath;
-			upPath="";
-		}
-		if(upPath.startsWith("/")){
-			upPath=upPath.substring(1);
-		}
-		return [dirName,upPath];
-	};
-
-	//-----------------------------------------------------------------------
-	//Create a new dir:
-	__Proto$j.newDir=function(dirPath,allowRoot=0,recursive=true)
-	{
-		var self=this;
-		let writeVsn;
-		if(dirPath==='.'){
-			if(!allowRoot) {
-				throw "Error: '.' is not allowed for folder name.";
-			}
-		}
-
-		if(dirPath.endsWith("/")){
-			dirPath=dirPath.substring(0,dirPath.length-1);
-		}
-		if(dirPath.startsWith("/")){
-			dirPath=dirPath.substring(1);
-		}
-
-		async function mkDirList(list){
-			let i,n,stub;
-			n=list.length;
-			for(i=0;i<n;i++) {
-				stub=list[i];
-				await set$1(stub.path, stub.obj,self.dbStore);
-			}
-			return list[0];
-		}
-
-		async function doNewDir() {
-			if(self.writeObj && self.writeObj.writeVsn!==writeVsn){
-				self.writeObj.path;
-				await self.writeObj;
-			}
-
-			return get$1(dirPath, self.dbStore).then(async curDirObj => {
-				let upPath, dirName;
-				let dirList;
-				let time = Date.now();
-
-				dirList=[];
-				
-				//Check if path is already there and if it's dir?
-				if (curDirObj instanceof Uint8Array) {
-					throw "Can't create dir on file!";
-				} else if (typeof (curDirObj) === 'object') {
-					return curDirObj;
-				}
-
-				//Path is empty, create dir:
-				dirList.push({path:dirPath,obj:{}});
-				[dirName, upPath] = divPath(dirPath);
-				if(!upPath){
-					upPath=".";
-				}
-				while(upPath){
-					let dirObj;
-					dirObj=await get$1(upPath, self.dbStore);
-					if(!dirObj){
-						if(!recursive){
-							return null;
-						}
-						dirObj={};
-						dirObj[dirName]={
-							name: dirName, dir: 1, createTime: time, modifyTime: time,
-						};
-						dirList.push({path:upPath,obj:dirObj});
-					}else {
-						dirObj[dirName]={
-							name: dirName, dir: 1, createTime: time, modifyTime: time,
-						};
-						dirList.push({path:upPath,obj:dirObj});
-						break;
-					}
-					if(upPath==="."){
-						throw "newDir: Bad disk structure!";
-					}
-					[dirName, upPath] = divPath(upPath);
-					if(!upPath){
-						upPath=".";
-					}
-				}
-				return await mkDirList(dirList);
-			})
-		}
-		//Sync write operation:
-		writeVsn=this.writeVsn++;
-		self.writeObj=doNewDir();
-		self.writeObj.writeVsn=writeVsn;
-		self.writeObj.path=dirPath;
-		//console.log("Set wait obj: "+dirPath);
-		return self.writeObj;
-	};
-
-	//-----------------------------------------------------------------------
-	//Delete an entry-item, if path is a dir, also delete the whole dir tree under it.
-	__Proto$j.del=function(path){
-		var self=this;
-		let writeVsn;
-
-		//console.log("Disk.del: "+path);
-		if(path.endsWith("/")){
-			path=path.substring(0,path.length-1);
-		}
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		if(path.startsWith("./")){
-			path=path.substring(2);
-		}
-
-		//-------------------------------------------------------------------
-		//Delete file/dir item array(list)
-		async function doDelList(list){
-			let i,n,item,pList;
-			n=list.length;
-			pList=[];
-			for(i=0;i<n;i++){
-				item=list[i];
-				pList.push(del(item,self.dbStore));//Delete one item
-			}
-			return Promise.allSettled(pList);
-		}
-
-		//-------------------------------------------------------------------
-		//List an dir's all sub-tree items including sub in sub
-		async function doMakeList(tgtPath,tgtList){
-			let list,i,n,stub;
-			tgtList.push(tgtPath);
-			list=await self.getEntries(tgtPath);
-			n=list.length;
-			for(i=0;i<n;i++){
-				stub=list[i];
-				if(stub.dir){
-					await doMakeList((tgtPath?(tgtPath+"/"+stub.name):stub.name),tgtList);
-				}else {
-					tgtList.push((tgtPath?(tgtPath+"/"+stub.name):stub.name));
-				}
-			}
-		}
-
-		//-------------------------------------------------------------------
-		//Erase item's entry in upper dir record:
-		async function doDelEntry(tgtPath){
-			let tgtName,upPath;
-			[tgtName,upPath]=divPath(tgtPath);
-			if(!upPath){
-				upPath=".";
-			}
-			return get$1(upPath,self.dbStore).then((upDirObj)=>{
-				if(upDirObj){
-					delete upDirObj[tgtName];
-					return set$1(upPath,upDirObj,self.dbStore);
-				}
-			});
-		}
-
-		//-------------------------------------------------------------------
-		//Check delete item type, exec the del operation:
-		async function checkAndDel()
-		{
-			let waitPath;
-			if(self.writeObj && self.writeObj.writeVsn!==writeVsn){
-				waitPath=self.writeObj.path;
-				console.log("Waiting: "+path+" on "+waitPath);
-				await self.writeObj;
-				console.log("Wait done: "+path+" on "+waitPath);
-			}
-
-			return get$1(path,self.dbStore).then(async (delObj)=> {
-				let delList;
-
-				//Do the delete:
-				delList=[];
-				if(delObj instanceof Uint8Array) {
-					//File, nothing more.
-					delList.push(path);
-					return doDelList(delList).then(()=>{
-						return doDelEntry(path);
-					});
-				}else if(delObj){
-					//Dir, generate the sub-item list to delete
-					await doMakeList(path,delList);
-					return doDelList(delList).then(()=>{
-						return doDelEntry(path);
-					});
-				}else {
-					return doDelEntry(path);
-				}
-			});
-		}
-		writeVsn=this.writeVsn++;
-		self.writeObj=checkAndDel();
-		self.writeObj.writeVsn=writeVsn;
-		self.writeObj.path=path;
-		//console.log("Set wait obj: "+path);
-		return self.writeObj;
-	};
-
-	//-----------------------------------------------------------------------
-	//Save a file, fileObj can be string, File-Object, etc.
-	__Proto$j.saveFile=function(path,fileObj,recursive=true)
-	{
-		var self,tgtName,upPath,byteAry,time,writeVsn,byteHex;
-		self=this;
-
-		//console.log("JAXDisk.saveFile: Disk.saveFile: "+path);
-		if(path.endsWith("/")){
-			throw "JAXDisk.saveFile: Error: filename can't end with '/'!";
-		}
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-
-		[tgtName,upPath]=divPath(path);
-		time=Date.now();
-
-		let digestBytes=async function(buf) {
-			let hex;
-			const hashBuffer = await crypto.subtle.digest('SHA-256', buf);       	    	// hash the message
-			const hashArray = Array.from(new Uint8Array(hashBuffer));                     			// convert buffer to byte array
-			hex= hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
-			return hex;
-		};
-
-		//Save byte content to DB, update entry info, make base backup if needed:
-		async function saveByteAry(){
-			let dirVO,stub,oldData,oldHash;
-			//console.log("saveByteAry: "+path+", writeObj: "+(self.writeObj?self.writeObj.filePath:"null"));
-			//wait for current update file:
-			if(self.writeObj && self.writeObj.writeVsn!==writeVsn){
-				await self.writeObj;
-			}
-			//get upper dirVO:
-			dirVO=await get$1(upPath?upPath:".",self.dbStore);
-			if(!dirVO){
-				throw "Path is not available: "+upPath;
-			}
-			stub=dirVO[tgtName];
-			if(stub){
-				//file exists, update stub, save base if 1st :
-				oldHash=stub.hash;
-				stub.modifyTime=time;
-				if(!stub.modified && (oldHash!==byteHex || stub.size!==byteAry.byteLength)) {
-					oldData=await get$1(upPath ? (upPath + "/" + tgtName) : tgtName, self.dbStore);
-					//save the base file content:
-					if(oldData) {
-						set$1(upPath ? (upPath + "/" + tgtName) : tgtName, oldData, self.baseStore);
-					}
-					stub.modified=true;
-				}
-				stub.size=byteAry.byteLength;
-				stub.hash=byteHex;
-				//update stub:
-			}else {
-				//new file, create stub:
-				dirVO[tgtName]={
-					name:tgtName,dir:0,createTime:time,modifyTime:time,size:byteAry.byteLength,modified:true,
-					hash:byteHex
-				};
-			}
-			await set$1(upPath?(upPath+"/"+tgtName):tgtName,byteAry,self.dbStore);
-			await set$1(upPath?upPath:".",dirVO,self.dbStore);
-		}
-		
-		async function arrayBuffer(file){
-			if(file.arrayBuffer){
-				return file.arrayBuffer();
-			}
-			return new Promise((onDone,onError)=>{
-				let reader=new FileReader();
-				reader.onload=function(event) {
-					let arrayBuffer = event.target.result;
-					onDone(arrayBuffer);
-				};
-				reader.readAsArrayBuffer(file);
-			})
-		}
-
-		function doCopy(){
-			//Ensure saved object is ByteArray
-			if (typeof (fileObj) === 'string') {
-				let encoder = new TextEncoder();
-				byteAry = encoder.encode(fileObj);
-				return digestBytes(byteAry).then(hex=>{
-					writeVsn = self.writeVsn++;
-					byteHex=hex;
-					self.writeObj =saveByteAry();
-					self.writeObj.filePath = path;
-					self.writeObj.writeVsn = writeVsn;
-					return self.writeObj;
-				});
-			} else if (fileObj instanceof File) {
-				return arrayBuffer(fileObj).then(async buf => {
-					byteAry = new Uint8Array(buf);
-					return digestBytes(byteAry).then(hex=>{
-						writeVsn = self.writeVsn++;
-						byteHex=hex;
-						self.writeObj =saveByteAry();
-						self.writeObj.filePath = path;
-						self.writeObj.writeVsn = writeVsn;
-						return self.writeObj;
-					});
-				});
-			} else if (fileObj instanceof Uint8Array) {
-				byteAry = fileObj;
-				return digestBytes(byteAry).then(hex=>{
-					writeVsn = self.writeVsn++;
-					byteHex=hex;
-					self.writeObj =saveByteAry();
-					self.writeObj.filePath = path;
-					self.writeObj.writeVsn = writeVsn;
-					return self.writeObj;
-				});
-			}else if(fileObj instanceof ArrayBuffer){
-				byteAry = new Uint8Array(fileObj);
-				return digestBytes(byteAry).then(hex=>{
-					writeVsn = self.writeVsn++;
-					byteHex=hex;
-					self.writeObj =saveByteAry();
-					self.writeObj.filePath = path;
-					self.writeObj.writeVsn = writeVsn;
-					return self.writeObj;
-				});
-			}
-		}
-
-		if(upPath && recursive){
-			//Ensure the target dir is there:
-			return self.newDir(upPath).then(()=>{
-				return doCopy();
-			});
-		}else {
-			return doCopy();
-		}
-	};
-
-	//-----------------------------------------------------------------------
-	//Load file data as ByteArray
-	__Proto$j.loadFile=function(path)
-	{
-		var self;
-		self=this;
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		return get$1(path,self.dbStore).then(fileObj=>{
-			if(fileObj instanceof Uint8Array){
-				return fileObj;
-			}
-			return null;
-		});
-	};
-
-	//-----------------------------------------------------------------------
-	//Load file data as text
-	__Proto$j.loadText=function(path)
-	{
-		var self;
-		self=this;
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		return get$1(path,self.dbStore).then(fileObj=>{
-			if(fileObj instanceof Uint8Array){
-				let enc = new TextDecoder("utf-8");
-				return enc.decode(fileObj);
-			}
-			return null;
-		}).catch(err=>{
-			return null;
-		});
-	};
-
-	//-----------------------------------------------------------------------
-	//Read file, if encode!==null, read as text:
-	__Proto$j.readFile=function(path,encode=null){
-		if(encode) {
-			return this.loadText(path);
-		}else {
-			return this.loadFile(path);
-		}
-	};
-	
-	//-----------------------------------------------------------------------
-	//List sub-item-vo under path, return null if path is a file:
-	__Proto$j.getEntries=function(path)
-	{
-		var self;
-		self=this;
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		if(!path){
-			path='.';
-		}
-		return get$1(path,self.dbStore).then(fileObj=>{
-			if(fileObj instanceof Uint8Array || !fileObj){
-				return null;//这是文件，不是目录, 或者路径不存在
-			}
-			return Object.values(fileObj);
-		});
-	};
-
-	//-----------------------------------------------------------------------
-	//Check if a path is existed:
-	__Proto$j.isExist=function(path)
-	{
-		var self=this;
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		if(!path){
-			path='.';
-		}
-		return get$1(path,self.dbStore).then(fileObj=>{
-			return !!fileObj;
-		});
-	};
-
-	//-----------------------------------------------------------------------
-	//Get item entry(info) by path
-	__Proto$j.getEntry=async function(path){
-		let self=this;
-		let dir,fileName;
-		[fileName,dir]=divPath(path);
-		if(dir.startsWith("/")){
-			dir=dir.substring(1);
-		}
-		if(!dir){
-			dir='.';
-		}
-		let dirObj=await get$1(dir,self.dbStore);
-		if(dirObj) {
-			if(fileName===""){
-				return {name:self.name,dir:1,disk:1};
-			}
-			return dirObj[fileName]||null;
-		}
-		return null;
-	};
-
-	//-----------------------------------------------------------------------
-	//Set item entry-info by path
-	__Proto$j.setEntryInfo=async function(path,info){
-		let self=this;
-		let entry,pms;
-		entry=await this.getEntry(path);
-		if(typeof(entry)==="object"){
-			let dir,fileName,writeVersion;
-			[fileName,dir]=divPath(path);
-			if(dir.startsWith("/")){
-				dir=dir.substring(1);
-			}
-			if(!dir){
-				dir='.';
-			}
-			Object.assign(entry,info);
-			if(self.writeObj){
-				await self.writeObj;
-			}
-			writeVersion=self.writeVsn++;
-			self.writeObj=pms=get$1(dir,self.dbStore).then((dirInfo)=>{
-				dirInfo[fileName]=entry;
-				return set$1(dir,dirInfo,self.dbStore);
-			});
-			pms.writeVsn=writeVersion;
-			return pms;
-		}
-	};
-
-	//-----------------------------------------------------------------------
-	//copy a file or dir, src can from another disk (orgDisk)
-	__Proto$j.copyFile=function(path,newPath,overwrite=1,orgDisk=null)
-	{
-		var self=this;
-		var dirList,fileList;
-		orgDisk=orgDisk||this;
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		if(path.endsWith("/")){
-			path=path.substring(0,path.length-1);
-		}
-		if(!path){
-			path='.';
-		}
-
-		if(newPath.startsWith("/")){
-			newPath=newPath.substring(1);
-		}
-		if(newPath.endsWith("/")){
-			newPath=newPath.substring(0,newPath.length-1);
-		}
-		if(!newPath){
-			newPath='.';
-		}
-
-		dirList=[];
-		fileList=[];
-
-		async function checkInItem(itemPath,tgtPath) {
-			var itemObj,subPath,subTgtPath,curItem;
-			itemObj=await get$1(itemPath,orgDisk.dbStore);
-			if(itemObj instanceof Uint8Array){
-				curItem=await get$1(tgtPath,self.dbStore);//Is target there?
-				if(curItem) {
-					if(overwrite && curItem instanceof Uint8Array) {//Can't overwrite a dir with file!
-						fileList.push({org: itemPath, tgt: tgtPath});
-					}
-				}else {
-					fileList.push({org: itemPath, tgt: tgtPath});
-				}
-			}else if(typeof(itemObj)==="object"){
-				var stub,itemName,name;
-				dirList.push({org:itemPath,tgt:tgtPath});
-				for(itemName in itemObj){
-					name=itemName;
-					stub=itemObj[name];
-					subPath=itemPath?(itemPath+"/"+stub.name):stub.name;
-					subTgtPath=tgtPath?(tgtPath+"/"+stub.name):stub.name;
-					await checkInItem(subPath,subTgtPath);
-				}
-			}
-		}
-
-		function copyOneFile(stub){
-			return orgDisk.loadFile(stub.org).then(fileData=>{
-				return self.saveFile(stub.tgt,fileData);
-			});
-		}
-
-		return get$1(path,orgDisk.dbStore).then(async fileObj=>{
-			let i,n,pList;
-			if(!fileObj){
-				throw "Missing copy source: "+path;
-			}
-			await checkInItem(path,newPath);
-			pList=[];
-			n=dirList.length;
-			for(i=0;i<n;i++){
-				pList.push(self.newDir(dirList[i].tgt));
-			}
-			return Promise.allSettled(pList).then(async ()=>{
-				let pList=[],p,stub;
-				n=fileList.length;
-				for(i=0;i<n;i++){
-					stub=fileList[i];
-					p=copyOneFile(stub);
-					pList.push(p);
-				}
-				return Promise.allSettled(pList).then(()=>{
-					return dirList.map((item)=>{
-						return item.tgt;
-					}).concat(fileList.map(item=>{
-						return item.tgt;
-					}));
-				});
-			});
-		});
-	};
-
-	//-----------------------------------------------------------------------
-	//Rename a file/dir
-	__Proto$j.rename=function(path,newPath)
-	{
-		var self=this;
-		let orgName,orgPath,tgtName,tgtPath;
-
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		if(path.endsWith("/")){
-			path=path.substring(0,path.length-1);
-		}
-		if(!path){
-			path='.';
-		}
-		[orgName, orgPath] = divPath(path);
-
-		if(newPath.startsWith("/")){
-			newPath=newPath.substring(1);
-		}
-		if(newPath.endsWith("/")){
-			newPath=newPath.substring(0,newPath.length-1);
-		}
-		if(!newPath){
-			newPath='.';
-		}
-		[tgtName, tgtPath] = divPath(newPath);
-
-		if(tgtPath!==orgPath){
-			throw "Path error."
-		}
-		if(orgName===tgtName){//Same name:
-			return (async function(){return true})();
-		}
-
-		return self.copyFile(path,newPath).then(()=>{
-			return self.del(path);
-		});
-	};
-
-	//-----------------------------------------------------------------------
-	//Get all items path-name in a flat list:
-	__Proto$j.getAllItemPath=async function(){
-		return await keys(this.dbStore);
-	};
-	
-	//-----------------------------------------------------------------------
-	//Load a file's base version:
-	__Proto$j.loadFileBase=async function(path,encode=null){
-		let self,fileObj;
-		self=this;
-		if(path.startsWith("/")){
-			path=path.substring(1);
-		}
-		if(!self.baseStore){
-			return null;
-		}
-		fileObj=await get$1(path,self.baseStore);
-		if(fileObj instanceof Uint8Array){
-			if(encode) {
-				let enc = new TextDecoder("utf-8");
-				return enc.decode(fileObj);
-			}else {
-				return fileObj;
-			}
-		}
-		return null;
 	};
 }
 
@@ -2986,6 +1942,7 @@ JAXHudObj=function(jaxEnv)
 	var hudPose,aniPose,_poseChanged;
 	var refCount,pxChdList;
 	var grayScale;
+	var filter;
 	var curFaceVO,curFace,facesVO;
 	var hudView;
 	var attach;
@@ -3036,6 +1993,7 @@ JAXHudObj=function(jaxEnv)
 	anchorH=0;
 	anchorV=0;
 	grayScale=0;
+	filter=null;
 	clip=0;
 	_poseChanged=0;
 	hudPose={scale:1,alpha:1,rot:0};
@@ -3772,6 +2730,36 @@ JAXHudObj=function(jaxEnv)
 				configurable:true,
 				enumerable:true
 			});
+			
+			//控件Filter
+			Object.defineProperty(this,'filter',{
+				get:function(){
+					return filter;
+				},
+				set:function(v){
+					if(v instanceof $JXV){
+						let oldV;
+						oldV = valJXVMap.get('filter');
+						if (oldV) {
+							oldV.untrace();
+							valJXVMap.delete('filter');
+						}
+						if(v.traces!==0) {
+							v.trace(this.stateObj, this, 'filter', hudView);
+							valJXVMap.set('filter', v);
+						}
+						v=v.val;
+					}
+					if(v===filter){
+						return;
+					}
+					filter=v;
+					_poseChanged=1;
+					signUpdate();
+				},
+				configurable:true,
+				enumerable:true
+			});
 
 			//控件光标:
 			Object.defineProperty(this, 'cursor', {
@@ -4361,7 +3349,13 @@ JAXHudObj=function(jaxEnv)
 						}
 					}
 					style.display=(this.display&&attach)?"block":"none";
-					style.filter=grayScale?"grayscale(1)":"none";
+					if(filter){
+						style.filter = filter;
+					}else if(grayScale){
+						style.filter = "grayscale(1)";
+					}else {
+						style.filter = "";
+					}
 					style.opacity=""+hudPose.alpha;
 					if(size[0]!==oldW || size[1]!==oldH){
 						let list,i,n,chd;
@@ -4893,7 +3887,7 @@ JAXHudObj.prototype=__Proto$h;
 		'autoLayout',
 		'position','x','y','w','h','anchorH','anchorV',"zIndex",
 		'ofX','ofY','ofW','ofH',
-		'display','clip','alpha','scale','rotate','cursor',
+		'display','clip','alpha','filter','scale','rotate','cursor',
 		'uiEvent','items',
 		'OnLayout','OnClick','OnTreeClick','OnMouseInOut',
 		'faces'
@@ -5544,6 +4538,2720 @@ __Proto$f.postApplyCSS = function (cssObj) {
 	};
 }
 
+class JAXDiskSysStore {
+	constructor() {
+		let dbName,storeName;
+		dbName="CokeCodes";
+		storeName="System";
+		this.storeName = storeName;
+		this._dbp = new Promise((resolve, reject) => {
+			const openreq = indexedDB.open(dbName, 1);
+			openreq.onerror = () => reject(openreq.error);
+			openreq.onsuccess = () => resolve(openreq.result);
+			// First time setup: create an empty object store
+			openreq.onupgradeneeded = () => {
+				openreq.result.createObjectStore(storeName);
+			};
+		});
+	}
+	_withIDBStore(type, callback) {
+		return this._dbp.then(db => new Promise((resolve, reject) => {
+			const transaction = db.transaction(this.storeName, type);
+			transaction.oncomplete = () => resolve();
+			transaction.onabort = transaction.onerror = () => reject(transaction.error);
+			callback(transaction.objectStore(this.storeName));
+		}));
+	}
+}
+let sysStore=null;
+
+class JAXDiskStore {
+	constructor(diskName, storeName = null) {
+		let dbName;
+		dbName="Disk_"+diskName;
+		this.dbName=dbName;
+		storeName=storeName||diskName;
+		if(storeName!==diskName && storeName!=="info" && storeName!=="base"){
+			throw Error("JAXDiskStore: Store name error: "+storeName);
+		}
+		this.storeName = storeName;
+		this._dbp = new Promise((resolve, reject) => {
+			const openreq = indexedDB.open(dbName, 1);
+			openreq.onerror = () => reject(openreq.error);
+			openreq.onsuccess = () => resolve(openreq.result);
+			// First time setup: create an empty object store
+			openreq.onupgradeneeded = () => {
+				openreq.result.createObjectStore(diskName);
+				openreq.result.createObjectStore("info");
+				openreq.result.createObjectStore("base");
+			};
+		});
+	}
+	_withIDBStore(type, callback) {
+		return this._dbp.then(db => new Promise((resolve, reject) => {
+			const transaction = db.transaction(this.storeName, type);
+			transaction.oncomplete = () => resolve();
+			transaction.onabort = transaction.onerror = () => reject(transaction.error);
+			callback(transaction.objectStore(this.storeName));
+		}));
+	}
+	static systemStore(){
+		if(sysStore){
+			return sysStore;
+		}
+		sysStore=new JAXDiskSysStore();
+		return sysStore;
+	}
+}
+
+function get$1(key, store) {
+	let req;
+	return store._withIDBStore('readonly', store => {
+		req = store.get(key);
+	}).then(() => req.result);
+}
+function set$1(key, value, store) {
+	return store._withIDBStore('readwrite', store => {
+		store.put(value, key);
+	});
+}
+function del(key, store) {
+	return store._withIDBStore('readwrite', store => {
+		store.delete(key);
+	});
+}
+function clear(store) {
+	return store._withIDBStore('readwrite', store => {
+		store.clear();
+	});
+}
+function keys(store) {
+	const keys = [];
+	return store._withIDBStore('readonly', store => {
+		// This would be store.getAllKeys(), but it isn't supported by Edge or Safari.
+		// And openKeyCursor isn't supported by Safari.
+		(store.openKeyCursor || store.openCursor).call(store).onsuccess = function () {
+			if (!this.result)
+				return;
+			keys.push(this.result.key);
+			this.result.continue();
+		};
+	}).then(() => keys);
+}
+
+function drop(databaseName){
+	indexedDB.deleteDatabase(databaseName);
+}
+
+//>>>>>>Node2Coke>>>>>>
+var module$1$1={exports:{}};
+var module$2=module$1$1;
+
+function assertPath(path) {
+	if (typeof path !== 'string') {
+		throw new TypeError('Path must be a string. Received ' + JSON.stringify(path));
+	}
+}
+
+// Resolves . and .. elements in a path with directory names
+function normalizeStringPosix(path, allowAboveRoot) {
+	var res = '';
+	var lastSegmentLength = 0;
+	var lastSlash = -1;
+	var dots = 0;
+	var code;
+	for (var i = 0; i <= path.length; ++i) {
+		if (i < path.length)
+			code = path.charCodeAt(i);
+		else if (code === 47 /*/*/)
+			break;
+		else
+			code = 47 /*/*/;
+		if (code === 47 /*/*/) {
+			if (lastSlash === i - 1 || dots === 1) ; else if (lastSlash !== i - 1 && dots === 2) {
+				if (res.length < 2 || lastSegmentLength !== 2 || res.charCodeAt(res.length - 1) !== 46 /*.*/ || res.charCodeAt(res.length - 2) !== 46 /*.*/) {
+					if (res.length > 2) {
+						var lastSlashIndex = res.lastIndexOf('/');
+						if (lastSlashIndex !== res.length - 1) {
+							if (lastSlashIndex === -1) {
+								res = '';
+								lastSegmentLength = 0;
+							} else {
+								res = res.slice(0, lastSlashIndex);
+								lastSegmentLength = res.length - 1 - res.lastIndexOf('/');
+							}
+							lastSlash = i;
+							dots = 0;
+							continue;
+						}
+					} else if (res.length === 2 || res.length === 1) {
+						res = '';
+						lastSegmentLength = 0;
+						lastSlash = i;
+						dots = 0;
+						continue;
+					}
+				}
+				if (allowAboveRoot) {
+					if (res.length > 0)
+						res += '/..';
+					else
+						res = '..';
+					lastSegmentLength = 2;
+				}
+			} else {
+				if (res.length > 0)
+					res += '/' + path.slice(lastSlash + 1, i);
+				else
+					res = path.slice(lastSlash + 1, i);
+				lastSegmentLength = i - lastSlash - 1;
+			}
+			lastSlash = i;
+			dots = 0;
+		} else if (code === 46 /*.*/ && dots !== -1) {
+			++dots;
+		} else {
+			dots = -1;
+		}
+	}
+	return res;
+}
+
+function _format(sep, pathObject) {
+	var dir = pathObject.dir || pathObject.root;
+	var base = pathObject.base || (pathObject.name || '') + (pathObject.ext || '');
+	if (!dir) {
+		return base;
+	}
+	if (dir === pathObject.root) {
+		return dir + base;
+	}
+	return dir + sep + base;
+}
+
+var posix = {
+	// path.resolve([from ...], to)
+	resolve: function resolve() {
+		var resolvedPath = '';
+		var resolvedAbsolute = false;
+		var cwd;
+		
+		for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+			var path;
+			if (i >= 0)
+				path = arguments[i];
+			else {
+				if (cwd === undefined)
+					cwd = process.cwd();
+				path = cwd;
+			}
+			
+			assertPath(path);
+			
+			// Skip empty entries
+			if (path.length === 0) {
+				continue;
+			}
+			
+			resolvedPath = path + '/' + resolvedPath;
+			resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
+		}
+		
+		// At this point the path should be resolved to a full absolute path, but
+		// handle relative paths to be safe (might happen when process.cwd() fails)
+		
+		// Normalize the path
+		resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);
+		
+		if (resolvedAbsolute) {
+			if (resolvedPath.length > 0)
+				return '/' + resolvedPath;
+			else
+				return '/';
+		} else if (resolvedPath.length > 0) {
+			return resolvedPath;
+		} else {
+			return '.';
+		}
+	},
+	
+	normalize: function normalize(path) {
+		assertPath(path);
+		
+		if (path.length === 0) return '.';
+		
+		var isAbsolute = path.charCodeAt(0) === 47 /*/*/;
+		var trailingSeparator = path.charCodeAt(path.length - 1) === 47 /*/*/;
+		
+		// Normalize the path
+		path = normalizeStringPosix(path, !isAbsolute);
+		
+		if (path.length === 0 && !isAbsolute) path = '.';
+		if (path.length > 0 && trailingSeparator) path += '/';
+		
+		if (isAbsolute) return '/' + path;
+		return path;
+	},
+	
+	isAbsolute: function isAbsolute(path) {
+		assertPath(path);
+		return path.length > 0 && path.charCodeAt(0) === 47 /*/*/;
+	},
+	
+	join: function join() {
+		if (arguments.length === 0)
+			return '.';
+		var joined;
+		for (var i = 0; i < arguments.length; ++i) {
+			var arg = arguments[i];
+			assertPath(arg);
+			if (arg.length > 0) {
+				if (joined === undefined)
+					joined = arg;
+				else
+					joined += '/' + arg;
+			}
+		}
+		if (joined === undefined)
+			return '.';
+		return posix.normalize(joined);
+	},
+	
+	relative: function relative(from, to) {
+		assertPath(from);
+		assertPath(to);
+		
+		if (from === to) return '';
+		
+		from = posix.resolve(from);
+		to = posix.resolve(to);
+		
+		if (from === to) return '';
+		
+		// Trim any leading backslashes
+		var fromStart = 1;
+		for (; fromStart < from.length; ++fromStart) {
+			if (from.charCodeAt(fromStart) !== 47 /*/*/)
+				break;
+		}
+		var fromEnd = from.length;
+		var fromLen = fromEnd - fromStart;
+		
+		// Trim any leading backslashes
+		var toStart = 1;
+		for (; toStart < to.length; ++toStart) {
+			if (to.charCodeAt(toStart) !== 47 /*/*/)
+				break;
+		}
+		var toEnd = to.length;
+		var toLen = toEnd - toStart;
+		
+		// Compare paths to find the longest common path from root
+		var length = fromLen < toLen ? fromLen : toLen;
+		var lastCommonSep = -1;
+		var i = 0;
+		for (; i <= length; ++i) {
+			if (i === length) {
+				if (toLen > length) {
+					if (to.charCodeAt(toStart + i) === 47 /*/*/) {
+						// We get here if `from` is the exact base path for `to`.
+						// For example: from='/foo/bar'; to='/foo/bar/baz'
+						return to.slice(toStart + i + 1);
+					} else if (i === 0) {
+						// We get here if `from` is the root
+						// For example: from='/'; to='/foo'
+						return to.slice(toStart + i);
+					}
+				} else if (fromLen > length) {
+					if (from.charCodeAt(fromStart + i) === 47 /*/*/) {
+						// We get here if `to` is the exact base path for `from`.
+						// For example: from='/foo/bar/baz'; to='/foo/bar'
+						lastCommonSep = i;
+					} else if (i === 0) {
+						// We get here if `to` is the root.
+						// For example: from='/foo'; to='/'
+						lastCommonSep = 0;
+					}
+				}
+				break;
+			}
+			var fromCode = from.charCodeAt(fromStart + i);
+			var toCode = to.charCodeAt(toStart + i);
+			if (fromCode !== toCode)
+				break;
+			else if (fromCode === 47 /*/*/)
+				lastCommonSep = i;
+		}
+		
+		var out = '';
+		// Generate the relative path based on the path difference between `to`
+		// and `from`
+		for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {
+			if (i === fromEnd || from.charCodeAt(i) === 47 /*/*/) {
+				if (out.length === 0)
+					out += '..';
+				else
+					out += '/..';
+			}
+		}
+		
+		// Lastly, append the rest of the destination (`to`) path that comes after
+		// the common path parts
+		if (out.length > 0)
+			return out + to.slice(toStart + lastCommonSep);
+		else {
+			toStart += lastCommonSep;
+			if (to.charCodeAt(toStart) === 47 /*/*/)
+				++toStart;
+			return to.slice(toStart);
+		}
+	},
+	
+	_makeLong: function _makeLong(path) {
+		return path;
+	},
+	
+	dirname: function dirname(path) {
+		assertPath(path);
+		if (path.length === 0) return '.';
+		var code = path.charCodeAt(0);
+		var hasRoot = code === 47 /*/*/;
+		var end = -1;
+		var matchedSlash = true;
+		for (var i = path.length - 1; i >= 1; --i) {
+			code = path.charCodeAt(i);
+			if (code === 47 /*/*/) {
+				if (!matchedSlash) {
+					end = i;
+					break;
+				}
+			} else {
+				// We saw the first non-path separator
+				matchedSlash = false;
+			}
+		}
+		
+		if (end === -1) return hasRoot ? '/' : '.';
+		if (hasRoot && end === 1) return '//';
+		return path.slice(0, end);
+	},
+	
+	basename: function basename(path, ext) {
+		if (ext !== undefined && typeof ext !== 'string') throw new TypeError('"ext" argument must be a string');
+		assertPath(path);
+		
+		var start = 0;
+		var end = -1;
+		var matchedSlash = true;
+		var i;
+		
+		if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
+			if (ext.length === path.length && ext === path) return '';
+			var extIdx = ext.length - 1;
+			var firstNonSlashEnd = -1;
+			for (i = path.length - 1; i >= 0; --i) {
+				var code = path.charCodeAt(i);
+				if (code === 47 /*/*/) {
+					// If we reached a path separator that was not part of a set of path
+					// separators at the end of the string, stop now
+					if (!matchedSlash) {
+						start = i + 1;
+						break;
+					}
+				} else {
+					if (firstNonSlashEnd === -1) {
+						// We saw the first non-path separator, remember this index in case
+						// we need it if the extension ends up not matching
+						matchedSlash = false;
+						firstNonSlashEnd = i + 1;
+					}
+					if (extIdx >= 0) {
+						// Try to match the explicit extension
+						if (code === ext.charCodeAt(extIdx)) {
+							if (--extIdx === -1) {
+								// We matched the extension, so mark this as the end of our path
+								// component
+								end = i;
+							}
+						} else {
+							// Extension does not match, so our result is the entire path
+							// component
+							extIdx = -1;
+							end = firstNonSlashEnd;
+						}
+					}
+				}
+			}
+			
+			if (start === end) end = firstNonSlashEnd;else if (end === -1) end = path.length;
+			return path.slice(start, end);
+		} else {
+			for (i = path.length - 1; i >= 0; --i) {
+				if (path.charCodeAt(i) === 47 /*/*/) {
+					// If we reached a path separator that was not part of a set of path
+					// separators at the end of the string, stop now
+					if (!matchedSlash) {
+						start = i + 1;
+						break;
+					}
+				} else if (end === -1) {
+					// We saw the first non-path separator, mark this as the end of our
+					// path component
+					matchedSlash = false;
+					end = i + 1;
+				}
+			}
+			
+			if (end === -1) return '';
+			return path.slice(start, end);
+		}
+	},
+	
+	extname: function extname(path) {
+		assertPath(path);
+		var startDot = -1;
+		var startPart = 0;
+		var end = -1;
+		var matchedSlash = true;
+		// Track the state of characters (if any) we see before our first dot and
+		// after any path separator we find
+		var preDotState = 0;
+		for (var i = path.length - 1; i >= 0; --i) {
+			var code = path.charCodeAt(i);
+			if (code === 47 /*/*/) {
+				// If we reached a path separator that was not part of a set of path
+				// separators at the end of the string, stop now
+				if (!matchedSlash) {
+					startPart = i + 1;
+					break;
+				}
+				continue;
+			}
+			if (end === -1) {
+				// We saw the first non-path separator, mark this as the end of our
+				// extension
+				matchedSlash = false;
+				end = i + 1;
+			}
+			if (code === 46 /*.*/) {
+				// If this is our first dot, mark it as the start of our extension
+				if (startDot === -1)
+					startDot = i;
+				else if (preDotState !== 1)
+					preDotState = 1;
+			} else if (startDot !== -1) {
+				// We saw a non-dot and non-path separator before our dot, so we should
+				// have a good chance at having a non-empty extension
+				preDotState = -1;
+			}
+		}
+		
+		if (startDot === -1 || end === -1 ||
+			// We saw a non-dot character immediately before the dot
+			preDotState === 0 ||
+			// The (right-most) trimmed path component is exactly '..'
+			preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+			return '';
+		}
+		return path.slice(startDot, end);
+	},
+	
+	format: function format(pathObject) {
+		if (pathObject === null || typeof pathObject !== 'object') {
+			throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
+		}
+		return _format('/', pathObject);
+	},
+	
+	parse: function parse(path) {
+		assertPath(path);
+		
+		var ret = { root: '', dir: '', base: '', ext: '', name: '' };
+		if (path.length === 0) return ret;
+		var code = path.charCodeAt(0);
+		var isAbsolute = code === 47 /*/*/;
+		var start;
+		if (isAbsolute) {
+			ret.root = '/';
+			start = 1;
+		} else {
+			start = 0;
+		}
+		var startDot = -1;
+		var startPart = 0;
+		var end = -1;
+		var matchedSlash = true;
+		var i = path.length - 1;
+		
+		// Track the state of characters (if any) we see before our first dot and
+		// after any path separator we find
+		var preDotState = 0;
+		
+		// Get non-dir info
+		for (; i >= start; --i) {
+			code = path.charCodeAt(i);
+			if (code === 47 /*/*/) {
+				// If we reached a path separator that was not part of a set of path
+				// separators at the end of the string, stop now
+				if (!matchedSlash) {
+					startPart = i + 1;
+					break;
+				}
+				continue;
+			}
+			if (end === -1) {
+				// We saw the first non-path separator, mark this as the end of our
+				// extension
+				matchedSlash = false;
+				end = i + 1;
+			}
+			if (code === 46 /*.*/) {
+				// If this is our first dot, mark it as the start of our extension
+				if (startDot === -1) startDot = i;else if (preDotState !== 1) preDotState = 1;
+			} else if (startDot !== -1) {
+				// We saw a non-dot and non-path separator before our dot, so we should
+				// have a good chance at having a non-empty extension
+				preDotState = -1;
+			}
+		}
+		
+		if (startDot === -1 || end === -1 ||
+			// We saw a non-dot character immediately before the dot
+			preDotState === 0 ||
+			// The (right-most) trimmed path component is exactly '..'
+			preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+			if (end !== -1) {
+				if (startPart === 0 && isAbsolute) ret.base = ret.name = path.slice(1, end);else ret.base = ret.name = path.slice(startPart, end);
+			}
+		} else {
+			if (startPart === 0 && isAbsolute) {
+				ret.name = path.slice(1, startDot);
+				ret.base = path.slice(1, end);
+			} else {
+				ret.name = path.slice(startPart, startDot);
+				ret.base = path.slice(startPart, end);
+			}
+			ret.ext = path.slice(startDot, end);
+		}
+		
+		if (startPart > 0) ret.dir = path.slice(0, startPart - 1);else if (isAbsolute) ret.dir = '/';
+		
+		return ret;
+	},
+	
+	sep: '/',
+	delimiter: ':',
+	win32: null,
+	posix: null
+};
+
+posix.posix = posix;
+
+module$2.exports = posix;
+
+//>>>>>>Node2Coke>>>>>>
+var path = module$1$1.exports;
+//<<<<<<Node2Coke<<<<<<
+
+var JAXDisk,jaxDisk;
+var JAXMemDisk,jaxMemDisk;
+var JAXRouteResponse;
+var heartBeating=false;
+function _heartBeat(){
+	fetch("/heart-beat").then(res=>{
+		if(!res.ok){
+			console.log("SW-heat-beat failed");
+		}
+	});
+	setTimeout(_heartBeat,5000);
+}
+function startHeartBeat(){
+	if(heartBeating)
+		return;
+	heartBeating=true;
+	_heartBeat();
+}
+
+//***************************************************************************
+//JAX's virtual disk system for web
+//***************************************************************************
+JAXDisk=function(diskName,majorDisk=null,code="")
+{
+	this.name=diskName;
+	//this.dbStore=new Store('JAXDisk_'+diskName, code?(code+"@"+diskName):diskName);
+	this.dbStore=new JAXDiskStore(diskName);
+	this.writeObj=null;
+	this.writeVsn=0;
+	if(majorDisk){
+		majorDisk.subDisk[code]=this;
+	}else {
+		JAXDisk.diskHash[diskName] = this;
+		this.subDisk={};
+	}
+	this.refCount=1;
+	this.infoStore=new JAXDiskStore(diskName, "info");
+	this.baseStore=new JAXDiskStore(diskName, "base");
+	this.inMemory=false;
+	this.memDisk=null;
+	this.syncAcessPms=null;
+};
+
+//---------------------------------------------------------------------------
+//All available disk:
+//JAXDisk.sysStore=new Store('JAXDisk_', "System");
+JAXDisk.sysStore=JAXDiskStore.systemStore();
+JAXDisk.disks=null;
+JAXDisk.diskHash={};
+
+//***************************************************************************
+//JAXDisk static-system functions:
+//***************************************************************************
+{
+	//---------------------------------------------------------------------------
+	//Init jax-disk system.
+	JAXDisk.init=async function(refresh=false) {
+		if(JAXDisk.disks && !refresh){
+			return;
+		}
+		return get$1("disks", JAXDisk.sysStore).then(list => {
+			startHeartBeat();
+			if (Array.isArray(list)) {
+				//list.push("RouteTest");
+				JAXDisk.disks = new Set(list);
+			} else {
+				JAXDisk.disks = new Set();
+				set$1("disks", [], JAXDisk.sysStore).then(() => {
+				});
+			}
+		});
+	};
+	
+	//---------------------------------------------------------------------------
+	//Open an disk, may create new disk if param create is true:
+	JAXDisk.openDisk = async function (diskName, create) {
+		let disk;
+		if(!this.disks) {
+			await this.init();
+		}
+		disk = this.diskHash[diskName];
+		if (disk) {
+			//Check if the disk is still there:
+			try {
+				let list = await get$1("disks", JAXDisk.sysStore);
+				if (list.indexOf(diskName) >= 0) {
+					disk.refCount++;
+					return disk;
+				} else {
+					//The disk is removed.
+					this.disks.delete(diskName);
+					delete this.diskHash[diskName];
+					return null;
+				}
+			}catch(err) {
+				return null;
+			}
+		}
+		if (!this.disks.has(diskName)) {
+			let list=await get$1("disks",JAXDisk.sysStore);
+			if(list && list.indexOf(diskName)>=0){
+				this.disks.add(diskName);
+				return new JAXDisk(diskName);
+			}
+			if (create) {
+				return await JAXDisk.newDisk(diskName);
+			}
+			return null;
+		}//else:
+		/*if(diskName==="RouteTest"){
+			return new JAXDisk(diskName);
+		}*/
+		let list=await get$1("disks",JAXDisk.sysStore);
+		if(list && list.indexOf(diskName)>=0) {
+			return new JAXDisk(diskName);
+		}
+		//The disk is removed.
+		this.disks.delete(diskName);
+		delete this.diskHash[diskName];
+		return null;
+	};
+	
+	//---------------------------------------------------------------------------
+	//Check if a disk is exist:
+	JAXDisk.diskExist = function (diskName,doubleCheck=0) {
+		var self=this;
+		return new Promise((resolve, reject) => {
+			if (self.disks.has(diskName)) {
+				resolve(1);
+			} else {
+				if(doubleCheck){
+					//再次检查数据库:
+					return get$1("disks",JAXDisk.sysStore).then(list=>{
+						if(list.indexOf(diskName)>=0){
+							JAXDisk.disks.add(diskName);
+							resolve(1);
+						}else {
+							resolve(0);
+						}
+					});
+				}else {
+					resolve(0);
+				}
+			}
+		});
+	};
+	
+	//---------------------------------------------------------------------------
+	//Create a new disk:
+	JAXDisk.newDisk = function (diskName) {
+		let self=this,diskObj;
+		if(diskName.indexOf("/")>=0 || diskName.indexOf("*")>=0){
+			throw new Error("New disk: illegal name.");
+		}
+		return new Promise((resolve, reject) => {
+			if (self.disks.has(diskName)) {
+				self.openDisk(diskName,0).then((disk)=>{
+					resolve(disk);
+				});
+				return;
+			}
+			self.disks.add(diskName);
+			set$1('disks', Array.from(self.disks), self.sysStore).then(() => {
+				//let store=new Store('JAXDisk_'+diskName, diskName,1);
+				let store=new JAXDiskStore(diskName);
+				set$1(".",{},store).then(()=>{
+					diskObj=new JAXDisk(diskName);
+					resolve(diskObj);
+				});
+			});
+		});
+	};
+	
+	//---------------------------------------------------------------------------
+	//Get a disk's info VO:
+	JAXDisk.getDiskInfo=async function(diskName){
+		let disk,infoStore;
+		if(!this.disks) {
+			await this.init();
+		}
+		disk=await this.openDisk(diskName,false);
+		if(!disk){
+			return null;
+		}
+		infoStore=disk.infoStore;
+		if(!infoStore){
+			//disk.infoStore=infoStore=new Store('JAXDiskInfo_'+diskName, diskName,1);
+			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
+		}
+		return await get$1("info",infoStore);
+	};
+	
+	//---------------------------------------------------------------------------
+	//Set a disk's info VO:
+	JAXDisk.setDiskInfo=async function(diskName,info){
+		let disk,infoStore,pms;
+		if(!this.disks) {
+			await this.init();
+		}
+		disk=await this.openDisk(diskName);
+		if(!disk){
+			return null;
+		}
+		infoStore=disk.infoStore;
+		if(!infoStore){
+			//disk.infoStore=infoStore=new Store('JAXDiskInfo_'+diskName, diskName,1);
+			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
+			await set$1("info",info,infoStore);
+			return;
+		}
+		if(disk.writeObj){
+			await disk.writeObj;
+		}
+		pms=set$1("info",info,infoStore);
+		disk.writeObj=pms;
+		pms.writeVsn=disk.writeVsn++;
+		return pms;
+	};
+	
+	//---------------------------------------------------------------------------
+	//Get a disk's info VO:
+	JAXDisk.getDiskAttr=async function(diskName,attr){
+		let disk,infoStore;
+		if(!this.disks) {
+			await this.init();
+		}
+		disk=await this.openDisk(diskName,false);
+		if(!disk){
+			return null;
+		}
+		infoStore=disk.infoStore;
+		if(!infoStore){
+			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
+		}
+		return await get$1("attr_"+attr,infoStore);
+	};
+	
+	//---------------------------------------------------------------------------
+	//Set a disk's attr:
+	JAXDisk.setDiskAttr=async function(diskName,key,val){
+		let disk,infoStore,pms;
+		if(!this.disks) {
+			await this.init();
+		}
+		disk=await this.openDisk(diskName);
+		if(!disk){
+			return null;
+		}
+		infoStore=disk.infoStore;
+		if(!infoStore){
+			disk.infoStore=infoStore=new JAXDiskStore(diskName, "info");
+			await set$1("attr_"+key,val,infoStore);
+			return;
+		}
+		if(disk.writeObj){
+			await disk.writeObj;
+		}
+		pms=set$1("attr_"+key,val,infoStore);
+		disk.writeObj=pms;
+		pms.writeVsn=disk.writeVsn++;
+		return pms;
+	};
+	
+	//---------------------------------------------------------------------------
+	//Remove a disk, clear the DB(but not drop the db)
+	JAXDisk.dropDisk = async function (diskName,dropDB=false) {
+		let self,diskObj;
+		self=this;
+		diskObj=await self.openDisk(diskName,false);
+		if(diskObj){
+			try {
+				if (diskObj.dbStore) {
+					await clear(diskObj.dbStore);
+					if (diskObj.infoStore) {
+						await clear(diskObj.infoStore);
+					}
+					if (diskObj.baseStore) {
+						await clear(diskObj.baseStore);
+					}
+				}
+			}catch(err){
+				console.log(`Drop disk ${diskName} error: ${err}`);
+				return false;
+			}
+		}else {
+			return false;
+		}
+		self.disks.delete(diskName);
+		delete self.diskHash[diskName];
+		await set$1('disks', Array.from(self.disks), self.sysStore);
+		if(dropDB){
+			drop(diskObj.dbStore.dbName);
+		}
+		return true;
+	};
+	
+	//---------------------------------------------------------------------------
+	//Get current disks list:
+	JAXDisk.getDisks=function(){
+		return Array.from(this.disks);
+	};
+	
+	//---------------------------------------------------------------------------
+	//Get current disk names
+	JAXDisk.getDiskNames=async function(){
+		let list,i,n,name,disk;
+		await this.init(true);
+		list=Array.from((this.disks));
+		n=list.length;
+		for(i=0;i<n;i++){
+			name=list[i];
+			disk=await JAXDisk.openDisk(name,0);
+			if(!disk){
+				list.splice(i,1);
+				JAXDisk.disks.delete(name);
+				delete JAXDisk.diskHash[name];
+				n--;i--;
+			}
+		}
+		return list;
+	};
+	
+	//---------------------------------------------------------------------------
+	//Make a disk in-memory so can sync accessed
+	JAXDisk.syncDisk=async function(diskName,create=false){
+		let disk;
+		disk=await JAXDisk.openDisk(diskName,create);
+		if(!disk)
+			return false;
+		if(disk.memDisk){
+			await disk.syncAcessPms;
+			return true;
+		}
+		return await disk.syncAccess();
+	};
+}
+
+async function digestBytes(buf) {
+	let hex;
+	const hashBuffer = await crypto.subtle.digest('SHA-256', buf);       	    	// hash the message
+	const hashArray = Array.from(new Uint8Array(hashBuffer));                     			// convert buffer to byte array
+	hex= hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+	return hex;
+}
+
+function divPath(dirPath)
+{
+	let pos,dirName,upPath;
+	//Split dir upper and base:
+	if(dirPath.endsWith("/")){
+		dirPath=dirPath.substring(0,dirPath.length-1);
+	}
+	pos=dirPath.lastIndexOf("/");
+	if(pos>=0){
+		dirName=dirPath.substring(pos+1);
+		upPath=dirPath.substring(0,pos);
+	}else {
+		dirName=dirPath;
+		upPath="";
+	}
+	if(upPath.startsWith("/")){
+		upPath=upPath.substring(1);
+	}
+	return [dirName,upPath];
+}
+
+async function readStream(stream){
+	let chunks=[];
+	let done,value,vo,block;
+	let reader,totalSize,data,offset;
+	reader=stream.getReader();
+	totalSize=0;
+	do {
+		vo = await reader.read();
+		done=vo.done;
+		value=vo.value;
+		if(value){
+			chunks.push(value);
+			totalSize+=value.length;
+		}
+	}while(!done);
+	data=new Uint8Array(totalSize);
+	offset=0;
+	for(let i=0,n=chunks.length;i<n;i++){
+		block=chunks[i];
+		data.set(block,offset);
+		offset+=block.length;
+	}
+	return data;
+}
+
+JAXDisk.prototype=jaxDisk={};
+let notifyModifyAct;//Function to notify file system changes to Service work
+
+//***************************************************************************
+//Watch and route features
+//***************************************************************************
+{
+	let isListening=false;
+	let watching=false;
+	let watchList=[];
+	let watchClientId=null;
+	let watchStubId=0;
+	let watchResolveCallback=null;
+	let watchResolveStubId=0;
+	let routeRegs={};
+	
+	//-----------------------------------------------------------------------
+	JAXDisk.handleSWMessage=function(event){
+		let sw=navigator.serviceWorker.controller;
+		let data=event.data;
+		let msg=data.msg;
+		console.log("Got message from SW: ");
+		console.log(event);
+		switch(msg){
+			case "WatchOK":
+				watchClientId=data.watchId;
+				watchResolveCallback && watchResolveCallback(""+watchClientId+"-"+watchResolveStubId);
+				break;
+			case "WatchAct": {
+				let act=data.act;
+				let path=data.path;
+				let actor=data.actor;
+				let stub;
+				for(let i=0,n=watchList.length;i<n;i++){
+					stub=watchList[i];
+					if(path.startsWith(stub.path)) {
+						stub.callback(act, path, actor);
+					}
+				}
+				break;
+			}
+			case "RouteStart":{
+				let path=data.path;
+				let stub=routeRegs[path];
+				stub.routeId=data.routeId;
+				if(stub && stub.resolveCallback){
+					stub.resolveCallback(stub);
+				}
+				break;
+			}
+			case "RouteCall":{
+				let path=data.path;
+				let stub=routeRegs[path];
+				data.callId;
+				if(!stub){
+					sw.postMessage({msg:"RouteRes",callId:data.callId,res:{code:404,body:"Route not found."}});
+				}else {
+					let req,request,ret,method,initVO;
+					req=data.request;
+					method=req.method||"GET";
+					initVO={
+						method:method,
+						referrer:req.referrer,
+						headers:req.headers||{}
+					};
+					if(method==="POST"){
+						initVO.body=req.body;
+					}
+					request=new Request(req.url,initVO);
+					try {
+						ret = stub.callback(request);
+						if(ret instanceof Promise){
+							ret.then(async res=>{
+								if(res instanceof Response){
+									let body;
+									if(res.bodyUsed){
+										body=await readStream(res.body);
+									}else {
+										body=null;
+									}
+									res={
+										body:body,
+										code:res.status,
+										headers:Object.assign({},res.headers),
+									};
+									sw.postMessage({ msg: "RouteRes", callId: data.callId, res: res });
+								}else {
+									sw.postMessage({ msg: "RouteRes", callId: data.callId, res: res });
+								}
+							}).catch((err)=>{
+								sw.postMessage({ msg: "RouteRes", callId: data.callId, res: {code:500,body:""+err} });
+							});
+						}else {
+							sw.postMessage({msg:"RouteRes",callId:data.callId,res:ret});
+						}
+					}catch(err){
+						sw.postMessage({ msg: "RouteRes", callId: data.callId, res: {code:500,body:""+err} });
+					}
+				}
+			}
+		}
+	};
+	
+	//-----------------------------------------------------------------------
+	notifyModifyAct=function(act,path,actor){
+		let sw=navigator.serviceWorker.controller;
+		if (sw) {
+			actor=actor||watchStubId;
+			sw.postMessage({msg:"WatchAct",act:act,path:path,actor:actor});
+		}
+	};
+	
+	//-----------------------------------------------------------------------
+	//Watch a path for changes:
+	JAXDisk.watch=async function(path,callback){
+		let stub;
+		stub={
+			path:path,
+			callback:callback,
+			id:(++watchStubId)
+		};
+		watchList.push(stub);
+		return new Promise((resolve,reject)=>{
+			if(!isListening){
+				isListening=true;
+				navigator.serviceWorker.onmessage=JAXDisk.handleSWMessage.bind(JAXDisk);
+			}
+			if(!watching){
+				watching=true;
+				if (navigator.serviceWorker.controller) {
+					watchResolveCallback=resolve;
+					watchResolveStubId=stub.id;
+					navigator.serviceWorker.controller.postMessage({msg:"Watch"});
+				}
+			}else {
+				resolve(""+watchClientId+"-"+stub.id);
+			}
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Unwatch:
+	JAXDisk.unwatch=function(path,callback){
+		let stub;
+		for(let i=0,n=watchList.length;i<n;i++){
+			stub=watchList[i];
+			if(stub.path===path && stub.callback===callback){
+				watchList.splice(i,1);
+				i--;n--;
+			}
+		}
+		if(!watchList.length){
+			navigator.serviceWorker.controller.postMessage({msg:"Unwatch",watchId:watchClientId});
+			isListening=false;
+		}
+	};
+	
+	//-----------------------------------------------------------------------
+	//Register a global route:
+	JAXDisk.regRoute=async function(path,callback){
+		return new Promise((resolve,reject)=>{
+			if(!isListening){
+				isListening=true;
+				navigator.serviceWorker.onmessage=JAXDisk.handleSWMessage.bind(JAXDisk);
+			}
+			let stub={
+				path:path,
+				callback:callback,
+				resolveCallback:resolve,
+				routeId:0
+			};
+			if(routeRegs[path]){
+				throw Error(`Route path ${path} already taken!`);
+			}
+			routeRegs[path]=stub;
+			navigator.serviceWorker.controller.postMessage({msg:"RouteOn",path:path});
+		});
+	};
+	
+}
+
+//***************************************************************************
+//JAXDisk member functions
+//***************************************************************************
+{
+	//-----------------------------------------------------------------------
+	//Upgrade a disk for sync access:
+	jaxDisk.syncAccess=async function(){
+		let memDisk;
+		if(this.memDisk) {
+			await this.syncAcessPms;
+			return true;
+		}
+		memDisk=new JAXMemDisk(this);
+		this.memDisk=memDisk;
+		this.syncAcessPms=memDisk.init();
+		await this.syncAcessPms;
+		return true;
+	};
+	
+	jaxDisk.newDir=async function(dirPath,allowRoot=0,recursive=true){
+		var self=this;
+		let writeVsn,actorId;
+		if(typeof(allowRoot)==="object"){
+			let opts=allowRoot;
+			allowRoot=opts.allowRoot||false;
+			recursive=opts.recursive||true;
+			actorId=opts.actor||null;
+		}else {
+			actorId=null;
+		}
+		if(dirPath==='.'){
+			if(!allowRoot) {
+				throw "Error: '.' is not allowed for folder name.";
+			}
+		}
+		
+		if(dirPath.endsWith("/")){
+			dirPath=dirPath.substring(0,dirPath.length-1);
+		}
+		if(dirPath.startsWith("/")){
+			dirPath=dirPath.substring(1);
+		}
+		
+		async function mkDirList(list){
+			let i,n,stub;
+			n=list.length;
+			for(i=0;i<n;i++) {
+				stub=list[i];
+				await set$1(stub.path, stub.obj,self.dbStore);
+			}
+			return list[0];
+		}
+		
+		async function doNewDir() {
+			if(self.writeObj && self.writeObj.writeVsn!==writeVsn){
+				await self.writeObj;
+			}
+			
+			return get$1(dirPath, self.dbStore).then(async curDirObj => {
+				let upPath, dirName;
+				let dirList;
+				let time = Date.now();
+				
+				dirList=[];
+				
+				//Check if path is already there and if it's dir?
+				if (curDirObj instanceof Uint8Array) {
+					throw "Can't create dir on file!";
+				} else if (typeof (curDirObj) === 'object') {
+					return curDirObj;
+				}
+				
+				//Path is empty, create dir:
+				dirList.push({path:dirPath,obj:{}});
+				[dirName, upPath] = divPath(dirPath);
+				if(!upPath){
+					upPath=".";
+				}
+				while(upPath){
+					let dirObj;
+					dirObj=await get$1(upPath, self.dbStore);
+					if(!dirObj){
+						if(!recursive){
+							return null;
+						}
+						dirObj={};
+						dirObj[dirName]={
+							name: dirName, dir: 1, createTime: time, modifyTime: time,
+						};
+						dirList.push({path:upPath,obj:dirObj});
+					}else {
+						dirObj[dirName]={
+							name: dirName, dir: 1, createTime: time, modifyTime: time,
+						};
+						dirList.push({path:upPath,obj:dirObj});
+						break;
+					}
+					if(upPath==="."){
+						throw "newDir: Bad disk structure!";
+					}
+					[dirName, upPath] = divPath(upPath);
+					if(!upPath){
+						upPath=".";
+					}
+				}
+				await mkDirList(dirList);
+				//Call cross-tab notify:
+				notifyModifyAct("NewDir","/"+self.name+"/"+dirPath,actorId);
+				return dirList[0].obj;
+			})
+		}
+		//Sync write operation:
+		writeVsn=this.writeVsn++;
+		self.writeObj=doNewDir();
+		self.writeObj.writeVsn=writeVsn;
+		self.writeObj.path=dirPath;
+		return self.writeObj;
+	};
+	
+	//-----------------------------------------------------------------------
+	//Delete an entry-item, if path is a dir, also delete the whole dir tree under it.
+	jaxDisk.del=async function(path,opts=null){
+		let self=this;
+		let writeVsn,actorId,delPath;
+		
+		if(opts){
+			actorId=opts.actor||null;
+		}
+		
+		//console.log("Disk.del: "+path);
+		if(path.endsWith("/")){
+			path=path.substring(0,path.length-1);
+		}
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		if(path.startsWith("./")){
+			path=path.substring(2);
+		}
+		delPath=path;
+		
+		//-------------------------------------------------------------------
+		//Delete file/dir item array(list)
+		async function doDelList(list){
+			let i,n,item,pList;
+			n=list.length;
+			pList=[];
+			for(i=0;i<n;i++){
+				item=list[i];
+				pList.push(del(item,self.dbStore));//Delete one item
+			}
+			return Promise.allSettled(pList);
+		}
+		
+		//-------------------------------------------------------------------
+		//List an dir's all sub-tree items including sub in sub
+		async function doMakeList(tgtPath,tgtList){
+			let list,i,n,stub;
+			tgtList.push(tgtPath);
+			list=await self.getEntries(tgtPath);
+			n=list.length;
+			for(i=0;i<n;i++){
+				stub=list[i];
+				if(stub.dir){
+					await doMakeList((tgtPath?(tgtPath+"/"+stub.name):stub.name),tgtList);
+				}else {
+					tgtList.push((tgtPath?(tgtPath+"/"+stub.name):stub.name));
+				}
+			}
+		}
+		
+		//-------------------------------------------------------------------
+		//Erase item's entry in upper dir record:
+		async function doDelEntry(tgtPath){
+			let tgtName,upPath;
+			[tgtName,upPath]=divPath(tgtPath);
+			if(!upPath){
+				upPath=".";
+			}
+			return get$1(upPath,self.dbStore).then((upDirObj)=>{
+				if(upDirObj){
+					delete upDirObj[tgtName];
+					return set$1(upPath,upDirObj,self.dbStore);
+				}
+			});
+		}
+		
+		//-------------------------------------------------------------------
+		//Check delete item type, exec the del operation:
+		async function checkAndDel(){
+			if(self.writeObj && self.writeObj.writeVsn!==writeVsn){
+				self.writeObj.path;
+				await self.writeObj;
+			}
+			
+			return get$1(path,self.dbStore).then(async (delObj)=> {
+				let delList;
+				
+				//Do the delete:
+				delList=[];
+				if(delObj instanceof Uint8Array) {
+					//File, nothing more.
+					delList.push(path);
+					return doDelList(delList).then(()=>{
+						return doDelEntry(path);
+					});
+				}else if(delObj){
+					//Dir, generate the sub-item list to delete
+					await doMakeList(path,delList);
+					return doDelList(delList).then(()=>{
+						return doDelEntry(path);
+					});
+				}else {
+					return doDelEntry(path);
+				}
+			}).then(()=>{
+				notifyModifyAct("Del","/"+self.name+"/"+delPath,actorId);
+			});
+		}
+		writeVsn=this.writeVsn++;
+		self.writeObj=checkAndDel();
+		self.writeObj.writeVsn=writeVsn;
+		self.writeObj.path=path;
+		//console.log("Set wait obj: "+path);
+		return self.writeObj;
+	};
+	
+	//-----------------------------------------------------------------------
+	//Save a file, fileObj can be string, File-Object, etc.
+	jaxDisk.saveFile=function(path,fileObj,opts=null){
+		let self,tgtName,upPath,byteAry,time,writeVsn,byteHex;
+		let actorId,filepath,recursive=true;
+		self=this;
+		
+		if(opts){
+			actorId=opts.actor||null;
+			recursive=opts.recursive||true;
+		}
+		
+		//console.log("JAXDisk.saveFile: Disk.saveFile: "+path);
+		if(path.endsWith("/")){
+			throw "JAXDisk.saveFile: Error: filename can't end with '/'!";
+		}
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		filepath=path;
+		
+		[tgtName,upPath]=divPath(path);
+		time=Date.now();
+		
+		//Save byte content to DB, update entry info, make base backup if needed:
+		async function saveByteAry(){
+			let dirVO,stub,oldData,oldHash;
+			//console.log("saveByteAry: "+path+", writeObj: "+(self.writeObj?self.writeObj.filePath:"null"));
+			//wait for current update file:
+			if(self.writeObj && self.writeObj.writeVsn!==writeVsn){
+				await self.writeObj;
+			}
+			//get upper dirVO:
+			dirVO=await get$1(upPath?upPath:".",self.dbStore);
+			if(!dirVO){
+				throw "Path is not available: "+upPath;
+			}
+			stub=dirVO[tgtName];
+			if(stub){
+				//file exists, update stub, save base if 1st :
+				oldHash=stub.hash;
+				stub.modifyTime=time;
+				if(!stub.modified && (oldHash!==byteHex || stub.size!==byteAry.byteLength)) {
+					oldData=await get$1(upPath ? (upPath + "/" + tgtName) : tgtName, self.dbStore);
+					//save the base file content:
+					if(oldData) {
+						set$1(upPath ? (upPath + "/" + tgtName) : tgtName, oldData, self.baseStore);
+					}
+					stub.modified=true;
+				}
+				stub.size=byteAry.byteLength;
+				stub.hash=byteHex;
+				//update stub:
+			}else {
+				//new file, create stub:
+				dirVO[tgtName]={
+					name:tgtName,dir:0,createTime:time,modifyTime:time,size:byteAry.byteLength,modified:true,
+					hash:byteHex
+				};
+			}
+			await set$1(upPath?(upPath+"/"+tgtName):tgtName,byteAry,self.dbStore);
+			await set$1(upPath?upPath:".",dirVO,self.dbStore);
+			//Call cross-tab notify:
+			notifyModifyAct("File","/"+self.name+"/"+filepath,actorId);
+		}
+		
+		async function arrayBuffer(file){
+			if(file.arrayBuffer){
+				return file.arrayBuffer();
+			}
+			return new Promise((onDone,onError)=>{
+				let reader=new FileReader();
+				reader.onload=function(event) {
+					let arrayBuffer = event.target.result;
+					onDone(arrayBuffer);
+				};
+				reader.readAsArrayBuffer(file);
+			})
+		}
+		
+		function doCopy(){
+			//Ensure saved object is ByteArray
+			if (typeof (fileObj) === 'string') {
+				let encoder = new TextEncoder();
+				byteAry = encoder.encode(fileObj);
+				return digestBytes(byteAry).then(hex=>{
+					writeVsn = self.writeVsn++;
+					byteHex=hex;
+					self.writeObj =saveByteAry();
+					self.writeObj.filePath = path;
+					self.writeObj.writeVsn = writeVsn;
+					return self.writeObj;
+				});
+			} else if (fileObj instanceof File) {
+				return arrayBuffer(fileObj).then(async buf => {
+					byteAry = new Uint8Array(buf);
+					return digestBytes(byteAry).then(hex=>{
+						writeVsn = self.writeVsn++;
+						byteHex=hex;
+						self.writeObj =saveByteAry();
+						self.writeObj.filePath = path;
+						self.writeObj.writeVsn = writeVsn;
+						return self.writeObj;
+					});
+				});
+			} else if (fileObj instanceof Uint8Array) {
+				byteAry = fileObj;
+				return digestBytes(byteAry).then(hex=>{
+					writeVsn = self.writeVsn++;
+					byteHex=hex;
+					self.writeObj =saveByteAry();
+					self.writeObj.filePath = path;
+					self.writeObj.writeVsn = writeVsn;
+					return self.writeObj;
+				});
+			}else if(fileObj instanceof ArrayBuffer){
+				byteAry = new Uint8Array(fileObj);
+				return digestBytes(byteAry).then(hex=>{
+					writeVsn = self.writeVsn++;
+					byteHex=hex;
+					self.writeObj =saveByteAry();
+					self.writeObj.filePath = path;
+					self.writeObj.writeVsn = writeVsn;
+					return self.writeObj;
+				});
+			}
+		}
+		
+		if(upPath){
+			return get$1(upPath,self.dbStore).then(pathObj=>{
+				//Ensure the target dir is there:
+				if(pathObj) {
+					if (pathObj instanceof Uint8Array) {
+						//upPath is a file, can't go on:
+						throw Error(`${upPath} is a file, can't write new file ${path} under it.`);
+					}
+					return doCopy();
+				}else if(recursive){
+					return self.newDir(upPath).then(()=>{
+						return doCopy();
+					});
+				}
+			});
+		}else {
+			return doCopy();
+		}
+	};
+	
+	//-----------------------------------------------------------------------
+	//Load file data as ByteArray
+	jaxDisk.loadFile=function(path)
+	{
+		var self;
+		self=this;
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		return get$1(path,self.dbStore).then(fileObj=>{
+			if(fileObj instanceof Uint8Array){
+				return fileObj;
+			}
+			return null;
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Load file data as text
+	jaxDisk.loadText=function(path)
+	{
+		var self;
+		self=this;
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		return get$1(path,self.dbStore).then(fileObj=>{
+			if(fileObj instanceof Uint8Array){
+				let enc = new TextDecoder("utf-8");
+				return enc.decode(fileObj);
+			}
+			return null;
+		}).catch(err=>{
+			return null;
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Write file, if encode!==null, read as text:
+	jaxDisk.writeFile=function(path,obj,encode=null){
+		let opts;
+		if(encode && typeof(encode)==="object"){
+			opts=encode;
+			encode=opts.encode||null;
+		}else {
+			opts=null;
+		}
+		if(encode) {
+			obj=""+obj;//Lazy convert
+		}
+		return this.saveFile(path,obj,opts);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Read file, if encode!==null, read as text:
+	jaxDisk.readFile=function(path,encode=null){
+		if(encode) {
+			return this.loadText(path);
+		}else {
+			return this.loadFile(path);
+		}
+	};
+	
+	//-----------------------------------------------------------------------
+	//List sub-item-vo under path, return null if path is a file:
+	jaxDisk.getEntries=function(path)
+	{
+		var self;
+		self=this;
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		if(!path){
+			path='.';
+		}
+		return get$1(path,self.dbStore).then(fileObj=>{
+			if(fileObj instanceof Uint8Array || !fileObj){
+				return null;//这是文件，不是目录, 或者路径不存在
+			}
+			return Object.values(fileObj);
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Check if a path is existed:
+	jaxDisk.isExist=function(path)
+	{
+		var self=this;
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		if(!path){
+			path='.';
+		}
+		return get$1(path,self.dbStore).then(fileObj=>{
+			return !!fileObj;
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Get item entry(info) by path
+	jaxDisk.getEntry=async function(path){
+		let self=this;
+		let dir,fileName;
+		[fileName,dir]=divPath(path);
+		if(dir.startsWith("/")){
+			dir=dir.substring(1);
+		}
+		if(dir.endsWith("/")){
+			dir=dir.substring(0,dir.length-1);
+		}
+		if(!dir){
+			dir='.';
+			if(fileName===""){
+				return {name:self.name,dir:1,disk:1};
+			}
+		}
+		let dirObj=await get$1(dir,self.dbStore);
+		if(dirObj) {
+			let entry=dirObj[fileName];
+			if(entry instanceof Object){
+				return entry;
+			}
+			return null;
+		}
+		return null;
+	};
+	
+	//-----------------------------------------------------------------------
+	//Set item entry-info by path
+	jaxDisk.setEntryInfo=async function(path,info){
+		let self=this;
+		let entry,pms;
+		delete info.name;
+		delete info.dir;
+		delete info.disk;
+		entry=await this.getEntry(path);
+		if(typeof(entry)==="object"){
+			let dir,fileName,writeVersion;
+			[fileName,dir]=divPath(path);
+			if(dir.startsWith("/")){
+				dir=dir.substring(1);
+			}
+			if(!dir){
+				dir='.';
+			}
+			Object.assign(entry,info);
+			if(self.writeObj){
+				await self.writeObj;
+			}
+			writeVersion=self.writeVsn++;
+			self.writeObj=pms=get$1(dir,self.dbStore).then((dirInfo)=>{
+				dirInfo[fileName]=entry;
+				return set$1(dir,dirInfo,self.dbStore);
+			});
+			pms.writeVsn=writeVersion;
+			return pms;
+		}
+	};
+	
+	//-----------------------------------------------------------------------
+	//copy a file or dir, src can from another disk (orgDisk)
+	jaxDisk.copyFile=function(path,newPath,overwrite=1,orgDisk=null)
+	{
+		var self=this;
+		var dirList,fileList;
+		orgDisk=orgDisk||this;
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		if(path.endsWith("/")){
+			path=path.substring(0,path.length-1);
+		}
+		if(!path){
+			path='.';
+		}
+		
+		if(newPath.startsWith("/")){
+			newPath=newPath.substring(1);
+		}
+		if(newPath.endsWith("/")){
+			newPath=newPath.substring(0,newPath.length-1);
+		}
+		if(!newPath){
+			newPath='.';
+		}
+		
+		dirList=[];
+		fileList=[];
+		
+		async function checkInItem(itemPath,tgtPath) {
+			var itemObj,subPath,subTgtPath,curItem;
+			itemObj=await get$1(itemPath,orgDisk.dbStore);
+			if(itemObj instanceof Uint8Array){
+				curItem=await get$1(tgtPath,self.dbStore);//Is target there?
+				if(curItem) {
+					if(overwrite && curItem instanceof Uint8Array) {//Can't overwrite a dir with file!
+						fileList.push({org: itemPath, tgt: tgtPath});
+					}
+				}else {
+					fileList.push({org: itemPath, tgt: tgtPath});
+				}
+			}else if(typeof(itemObj)==="object"){
+				var stub,itemName,name;
+				dirList.push({org:itemPath,tgt:tgtPath});
+				for(itemName in itemObj){
+					name=itemName;
+					stub=itemObj[name];
+					subPath=itemPath?(itemPath+"/"+stub.name):stub.name;
+					subTgtPath=tgtPath?(tgtPath+"/"+stub.name):stub.name;
+					await checkInItem(subPath,subTgtPath);
+				}
+			}
+		}
+		
+		function copyOneFile(stub){
+			return orgDisk.loadFile(stub.org).then(fileData=>{
+				return self.saveFile(stub.tgt,fileData);
+			});
+		}
+		
+		return get$1(path,orgDisk.dbStore).then(async fileObj=>{
+			let i,n,pList;
+			if(!fileObj){
+				throw "Missing copy source: "+path;
+			}
+			await checkInItem(path,newPath);
+			pList=[];
+			n=dirList.length;
+			for(i=0;i<n;i++){
+				pList.push(self.newDir(dirList[i].tgt));
+			}
+			return Promise.allSettled(pList).then(async ()=>{
+				let pList=[],p,stub;
+				n=fileList.length;
+				for(i=0;i<n;i++){
+					stub=fileList[i];
+					p=copyOneFile(stub);
+					pList.push(p);
+				}
+				return Promise.allSettled(pList).then(()=>{
+					return dirList.map((item)=>{
+						return item.tgt;
+					}).concat(fileList.map(item=>{
+						return item.tgt;
+					}));
+				});
+			});
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Rename a file/dir
+	jaxDisk.rename=function(path,newPath)
+	{
+		var self=this;
+		let orgName,orgPath,tgtName,tgtPath;
+		
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		if(path.endsWith("/")){
+			path=path.substring(0,path.length-1);
+		}
+		if(!path){
+			path='.';
+		}
+		[orgName, orgPath] = divPath(path);
+		
+		if(newPath.startsWith("/")){
+			newPath=newPath.substring(1);
+		}
+		if(newPath.endsWith("/")){
+			newPath=newPath.substring(0,newPath.length-1);
+		}
+		if(!newPath){
+			newPath='.';
+		}
+		[tgtName, tgtPath] = divPath(newPath);
+		
+		if(tgtPath!==orgPath){
+			throw "Path error."
+		}
+		if(orgName===tgtName){//Same name:
+			return (async function(){return true})();
+		}
+		
+		return self.copyFile(path,newPath).then(()=>{
+			return self.del(path);
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Get all items path-name in a flat list:
+	jaxDisk.getAllItemPath=async function(){
+		return await keys(this.dbStore);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Load a file's base version:
+	jaxDisk.loadFileBase=async function(path,encode=null){
+		let self,fileObj;
+		self=this;
+		if(path.startsWith("/")){
+			path=path.substring(1);
+		}
+		if(!self.baseStore){
+			return null;
+		}
+		fileObj=await get$1(path,self.baseStore);
+		if(fileObj instanceof Uint8Array){
+			if(encode) {
+				let enc = new TextDecoder("utf-8");
+				return enc.decode(fileObj);
+			}else {
+				return fileObj;
+			}
+		}
+		return null;
+	};
+}
+
+//***************************************************************************
+//JAXDisk functions based on jaxDisk
+//***************************************************************************
+{
+	//-----------------------------------------------------------------------
+	//Get disk and path-on-disk:
+	let parseDiskPath=JAXDisk.parseDiskPath=async function (fullPath){
+		let pos,diskName,diskPath,disk;
+		if(fullPath[0]!=='/'){
+			fullPath=path.join(JAXDisk.appPath,fullPath);
+			if(fullPath[0]!=='/') {
+				throw Error('Full path must starts with "/"');
+			}
+		}
+		pos=fullPath.indexOf("/",1);
+		if(pos<0){
+			diskName=fullPath.substring(1);
+			diskPath="";
+		}else {
+			diskName=fullPath.substring(1,pos);
+			diskPath=fullPath.substring(pos+1);
+		}
+		disk=await JAXDisk.openDisk(diskName,false);
+		return [disk,diskPath,diskName];
+	};
+	
+	//-----------------------------------------------------------------------
+	//Get disk and path-on-disk:
+	let parseDiskPathSync=JAXDisk.parseDiskPath=function (fullPath){
+		let pos,diskName,diskPath,disk;
+		if(fullPath[0]!=='/'){
+			fullPath=path.join(JAXDisk.appPath,fullPath);
+			if(fullPath[0]!=='/') {
+				throw Error('Full path must starts with "/"');
+			}
+		}
+		pos=fullPath.indexOf("/",1);
+		if(pos<0){
+			diskName=fullPath.substring(1);
+			diskPath="";
+		}else {
+			diskName=fullPath.substring(1,pos);
+			diskPath=fullPath.substring(pos+1);
+		}
+		disk=JAXDisk.diskHash[diskName];
+		return [disk,diskPath,diskName];
+	};
+	
+	//-----------------------------------------------------------------------
+	//Make a new dir:
+	JAXDisk.newDir=async function(fullPath,allowDisk=false,recursive=true){
+		let [disk,diskPath,diskName]=await parseDiskPath(fullPath);
+		if(typeof(allowDisk)==="object"){
+			let options=allowDisk;
+			allowDisk=options.allowDisk||false;
+			recursive=options.recursive||false;
+		}
+		if(!disk){
+			if(!allowDisk) {
+				return false;
+			}else {
+				disk=await JAXDisk.newDisk(diskName);
+				if(!diskPath){
+					return true;
+				}
+			}
+		}
+		await disk.newDir(diskPath,false,recursive);
+		return true;
+	};
+	
+	JAXDisk.newDirSync=function(fullPath,recursive=true){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(typeof(recursive)==="object"){
+			recursive=recursive.recursive||false;
+		}
+		if(!disk){
+			return false;
+		}
+		disk.newDirSync(diskPath,recursive);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Delete a entry:
+	JAXDisk.del=async function(fullPath,allowDisk=false,recursive=true){
+		let list;
+		let [disk,diskPath,diskName]=await parseDiskPath(fullPath);
+		if(typeof(allowDisk)==="object"){
+			let options=allowDisk;
+			allowDisk=options.allowDisk||false;
+			recursive=options.recursive||false;
+		}
+		if(!disk){
+			if(!allowDisk) {
+				return false;
+			}
+		}
+		list=await JAXDisk.getEntries(fullPath);
+		if(list && list.length>0 && !recursive){
+			return false;
+		}
+		if(!diskPath){
+			if(!allowDisk){
+				return false;
+			}
+			await JAXDisk.dropDisk(diskName);
+			return true;
+		}
+		await disk.del(diskPath);
+		return true;
+	};
+	
+	JAXDisk.delSync=function(fullPath,recursive=true){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(typeof(recursive)==="object"){
+			recursive=recursive.recursive||false;
+		}
+		if(!disk){
+			return false;
+		}
+		disk.delSync(diskPath,recursive);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Read a file with full path:
+	JAXDisk.readFile=async function(path,encode){
+		let data;
+		let [disk,diskPath]=await parseDiskPath(path);
+		data=await disk.readFile(diskPath,encode);
+		if(data===null){
+			throw Error(`${path}: can't read contents.`);
+		}
+		return data;
+	};
+	
+	JAXDisk.readFileSync=function(fullPath,encode){
+		let data;
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(!disk){
+			return false;
+		}
+		data=disk.readFileSync(diskPath,encode);
+		if(data===null){
+			throw Error(`${fullPath}: can't read contents.`);
+		}
+		return data;
+	};
+	
+	//-----------------------------------------------------------------------
+	//Write a file with full path:
+	JAXDisk.writeFile=async function(path,data,encode){
+		let [disk,diskPath]=await parseDiskPath(path);
+		return await disk.writeFile(diskPath,data,encode);
+	};
+	
+	JAXDisk.writeFileSync=function(fullPath,data,encode){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(!disk){
+			return false;
+		}
+		return disk.writeFileSync(diskPath,encode);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Get a entry with full path:
+	JAXDisk.getEntry=async function(path){
+		if(path==="/") {
+			return {name:"/",dir:1,root:1};
+		}
+		let [disk,diskPath]=await parseDiskPath(path);
+		return await disk.getEntry(diskPath);
+	};
+	
+	JAXDisk.getEntrySync=function(fullPath){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(!disk){
+			return false;
+		}
+		return disk.getEntrySync(diskPath);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Set a entry info with full path:
+	JAXDisk.setEntryInfo=async function(path,infoVO){
+		let [disk,diskPath]=await parseDiskPath(path);
+		return await disk.setEntryInfo(diskPath,infoVO);
+	};
+	
+	JAXDisk.setEntryInfoSync=function(fullPath,infoVO){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(!disk){
+			return false;
+		}
+		return disk.setEntryInfoSync(diskPath,infoVO);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Get entries under a full path:
+	JAXDisk.getEntries=async function(path){
+		let [disk,diskPath]=await parseDiskPath(path);
+		return await disk.getEntries(diskPath);
+	};
+	
+	JAXDisk.getEntriesSync=function(fullPath){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(!disk){
+			return false;
+		}
+		return disk.getEntriesSync(diskPath);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Get entry names under a full path:
+	JAXDisk.getEntryNames=async function(path){
+		if(path==="/"){
+			return await JAXDisk.getDiskNames();
+		}
+		let list=await JAXDisk.getEntries(path);
+		if(!list){
+			return null;
+		}
+		return list.map(item=>item.name);
+	};
+	
+	JAXDisk.getEntryNamesSync=function(fullPath){
+		let list=JAXDisk.getEntriesSync(fullPath);
+		if(!list){
+			return null;
+		}
+		return list.map(item=>item.name);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Check if a entry is there
+	JAXDisk.isExist=async function(path){
+		let entry=await JAXDisk.getEntry(path);
+		return !!entry;
+	};
+	
+	JAXDisk.isExistSync=function(fullPath){
+		let [disk,diskPath,diskName]=parseDiskPathSync(fullPath);
+		if(!disk){
+			return false;
+		}
+		return disk.isExistSync(diskPath);
+	};
+	
+	//-----------------------------------------------------------------------
+	//Copy a file or a dir to a new path:
+	JAXDisk.copy=async function(orgPath,tgtPath,options){
+		let [orgDisk,orgDiskPath]=await parseDiskPath(orgPath);
+		let [tgtDisk,tgtDiskPath]=await parseDiskPath(tgtPath);
+		let overwrite=options?(options.force||false):false;
+		await tgtDisk.copyFile(orgDiskPath,tgtDiskPath,overwrite,orgDisk);
+	};
+	
+	JAXDisk.copySync=function(orgPath,tgtPath,options){
+		let [orgDisk,orgDiskPath]=parseDiskPathSync(orgPath);
+		let [tgtDisk,tgtDiskPath]=parseDiskPathSync(tgtPath);
+		let overwrite=options?(options.force||false):false;
+		tgtDisk.copySync(orgDiskPath,tgtDiskPath,overwrite,orgDisk);
+	};
+}
+
+//***************************************************************************
+//JAXMemDisk
+//***************************************************************************
+{
+	//-----------------------------------------------------------------------
+	//Constructor:
+	JAXMemDisk=function(disk){
+		this.disk=disk;
+		this.entries=new Map();
+		this.name=disk.name;
+		this.inMemory=true;
+		disk.memDisk=this;
+		this.actorId=null;
+	};
+	jaxMemDisk=JAXMemDisk.prototype={};
+	
+	//-----------------------------------------------------------------------
+	//Init memery disk, read all entries into memory
+	jaxMemDisk.init=async function(){
+		let disk,keys,plist,entries;
+		console.warn(`Sync-init disk: ${this.name}. Better use async access whenever possible.`);
+		disk=this.disk;
+		entries=this.entries;
+		keys=await disk.getAllItemPath();
+		plist=[];
+		function readEntry(path){
+			return get$1(path,disk.store).then(fileObj=>{
+				entries.set(path,fileObj);
+			});
+		}
+		for(let key of keys){
+			plist.push(readEntry(key));
+		}
+		await Promise.all(plist);
+		"/"+this.name+"/";
+		this.actorId=await JAXDisk.watch("/"+this.name,(act,path,actorId)=>{
+			if(actorId===this.actorId){
+				return;
+			}
+			switch(act){
+				case "NewDir":{
+					this.newDirSync(path);
+					break;
+				}
+				case "Del":{
+					this.delSync(path);
+					break;
+				}
+				case "File":{
+					this.disk.readFile().then(data=>{
+						this.writeFileSync(path,data);
+					});
+					break;
+				}
+			}
+		});
+		return true;
+	};
+	//***********************************************************************
+	//Sync functions:
+	//***********************************************************************
+	{
+		//-------------------------------------------------------------------
+		//Create a new dir
+		jaxMemDisk.newDirSync=function(path){
+			let upDir,tgtName,upDirObj,time,curEntry;
+			if(path.startsWith("/")){
+				path=path.substring(1);
+			}
+			if(path.endsWith("/")){
+				path=path.substring(0,path.length-1);
+			}
+			if(path==="."||path===""){
+				throw Error(`Illegal dir name: ${path}`);
+			}
+			curEntry=this.entries.get(path);
+			if(curEntry){
+				if(curEntry.dir){
+					return true;
+				}
+				throw Error(`/${this.name}/path is a file, can't create dir at same place.`);
+			}
+			[tgtName,upDir]=divPath(path);
+			if(!upDir){
+				upDir=this.entries.get(".");
+			}else {
+				upDirObj=this.entries.get(upDir);
+			}
+			if(!upDirObj){
+				this.newDirSync(upDir);
+				upDirObj=this.entries.get(upDir);
+				if(!upDirObj){
+					return false;
+				}
+			}
+			time=Date.now();
+			upDirObj[tgtName]={name:tgtName,createTime:time,dir:1};
+			this.entries.set(path,{});
+			this.disk.newDir(path,{actor:this.actorId});
+			return true;
+		};
+		jaxDisk.newDirSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.newDirSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Delete a entry item:
+		jaxMemDisk.delSync=function(path){
+			let upDir,tgtName,curEntry,upDirObj;
+			if(path.startsWith("/")){
+				path=path.substring(1);
+			}
+			if(path.endsWith("/")){
+				path=path.substring(0,path.length-1);
+			}
+			if(path==="."||path===""){
+				throw Error(`Illegal dir name: ${path}`);
+			}
+			curEntry=this.entries.get(path);
+			if(!curEntry){
+				return true;
+			}
+			[tgtName,upDir]=divPath(path);
+			if(!upDir){
+				upDirObj=this.entries.get(".");
+			}else {
+				upDirObj=this.entries.get(upDir);
+			}
+			if(!upDirObj){
+				throw Error(`Path: /${this.name}/${upDir} is not available.`);
+			}
+			if(curEntry.dir){
+				let list=this.getEntriesSync(path);
+				for(let subItem of list){
+					this.delSync(path+"/"+subItem.name);
+				}
+			}
+			delete upDirObj[tgtName];
+			this.entries.delete(path);
+			this.disk.del(path,{actor:this.actorId});
+			return true;
+		};
+		jaxDisk.delSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.delSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Read a file content
+		jaxMemDisk.readFileSync=function(path,encode){
+			let data;
+			data=this.entries.get(path);
+			if(!(data instanceof Uint8Array)){
+				return null;
+			}
+			if(encode){
+				let enc = new TextDecoder("utf-8");
+				return enc.decode(data);
+			}
+			return data;
+		};
+		jaxDisk.readFileSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.readFileSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Write a file
+		jaxMemDisk.writeFileSync=function(path,data,encode){
+			let byteAry,tgtName,upPath,time,upObj,fileStub,orgStub;
+			if(encode) {
+				data=""+data;//Lazy convert
+			}
+			if(path.startsWith("/")){
+				path=path.substring(1);
+			}
+			if(path.endsWith("/")){
+				throw Error(`${path} can't be a file name.`)
+			}
+			
+			[tgtName,upPath]=divPath(path);
+			time=Date.now();
+			
+			//Ensure saved object is ByteArray
+			if (typeof (data) === 'string') {
+				let encoder = new TextEncoder();
+				byteAry = encoder.encode(data);
+			} else if (data instanceof File) {
+				throw Error("File object can't do sync write, convert to Uint8Array before write.");
+			} else if (data instanceof Uint8Array) {
+				byteAry = data;
+			}else if(data instanceof ArrayBuffer){
+				byteAry = new Uint8Array(data);
+			}
+			upObj=this.entries.get(upPath);
+			if(upObj) {
+				if(!upObj.dir){
+					throw Error(`${upPath} is not a dir, can't write file under it.`)
+				}
+			}else {
+				this.newDirSync(upPath);
+				upObj=this.entries.get(upPath);
+				if(!upObj){
+					throw Error(`${upPath} can't be create.`)
+				}
+			}
+			orgStub=upObj[tgtName];
+			if(orgStub){
+				if(orgStub.dir){
+					throw Error(`/${this.name}/${path} is a dir, can't be overwrite by a file.`);
+				}
+				fileStub=orgStub;
+			}else {
+				fileStub = {
+					name: tgtName,
+					modified:true,
+					createTime:time
+				};
+				upObj[tgtName]=fileStub;
+			}
+			fileStub.size=byteAry.length;
+			fileStub.modifyTime=time;
+			digestBytes(byteAry).then(hex=>{
+				fileStub.hash=hex;
+			});
+			this.entries.set(path,byteAry);
+			this.disk.writeFile(path,byteAry,encode);
+		};
+		jaxDisk.writeFileSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.writeFileSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Check entry exist:
+		jaxMemDisk.isExistSync=function(path){
+			if(path.endsWith("/")){
+				path=path.substring(0,path.length-1);
+			}
+			if(path==="" || path==="."){
+				return true;
+			}
+			return !!this.entries.get(path);
+			
+		};
+		jaxDisk.isExistSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.isExistSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Get a file entry:
+		jaxMemDisk.getEntrySync=function(path){
+			let dir,fileName;
+			[fileName,dir]=divPath(path);
+			if(dir.startsWith("/")){
+				dir=dir.substring(1);
+			}
+			if(dir.endsWith("/")){
+				dir=dir.substring(0,dir.length-1);
+			}
+			if(!dir){
+				dir='.';
+				if(fileName===""){
+					return {name:this.name,dir:1,disk:1};
+				}
+			}
+			dir=this.entries.get(dir);
+			if(dir) {
+				let entry=dir[fileName];
+				if(entry instanceof Object){
+					return entry;
+				}
+				return null;
+			}
+			return null;
+		};
+		jaxDisk.getEntrySync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.getEntrySync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Get sub items' entry under a path
+		jaxMemDisk.getEntriesSync=function(path){
+			let dir;
+			if(path.startsWith("/")){
+				path=path.substring(1);
+			}
+			if(path.endsWith("/")){
+				path=path.substring(0,path.length-1);
+			}
+			if(path===""){
+				path=".";
+			}
+			dir=this.entries.get(path);
+			if(dir){
+				if(dir instanceof Uint8Array){
+					return null;//This is a file, not dir
+				}
+				return Object.values(dir);
+			}
+			return null;
+		};
+		jaxDisk.getEntriesSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.getEntriesSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Set a entry info:
+		jaxMemDisk.setEntryInfoSync=function(path,info){
+			let dir,fileName;
+			[fileName,dir]=divPath(path);
+			if(dir.startsWith("/")){
+				dir=dir.substring(1);
+			}
+			if(dir.endsWith("/")){
+				dir=dir.substring(0,dir.length-1);
+			}
+			if(!dir){
+				return;//Can't set disk root info
+			}
+			dir=this.entries.get(dir);
+			if(dir && dir.dir) {
+				let orgInfo=dir[fileName];
+				if(!orgInfo){
+					return false;
+				}
+				//These key is critical and not to be changed here:
+				delete info.name;
+				delete info.dir;
+				delete info.disk;
+				Object.assign(orgInfo,info);
+				return true;
+			}
+			return false;
+		};
+		jaxDisk.setEntryInfoSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.setEntryInfoSync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Copy a file/dir:
+		jaxMemDisk.copySync=function (orgPath,newPath,overwrite=1,orgDisk=null){
+			let self=this;
+			let orgEntry,tgtEntry;
+			if(orgPath.endsWith("/")){
+				orgPath=orgPath.substring(0,orgPath.length-1);
+			}
+			if(newPath.startsWith("/")){
+				newPath=newPath.substring(1);
+			}
+			if(newPath.endsWith("/")){
+				newPath=newPath.substring(0,orgPath.length-1);
+			}
+			if(orgPath.startsWith("/")){
+				orgPath=orgPath.substring(1);
+			}
+			orgDisk=orgDisk||this;
+			if(orgDisk.memDisk){
+				orgDisk=orgDisk.memDisk;
+			}
+			if(!orgDisk.readFileSync){
+				throw Error(`orgDisk ${orgDisk.name} can not sync access.`);
+			}
+			function copyOneFile(orgDisk,orgPath,tgtPath){
+				let data;
+				data=orgDisk.readFileSync(orgPath);
+				self.writeFileSync(tgtPath,data);
+			}
+			orgEntry=orgDisk.getEntrySync(orgPath);
+			tgtEntry=self.getEntrySync(newPath);
+			if(orgEntry.dir){
+				let list,subItem;
+				if(tgtEntry && !tgtEntry.dir) {
+					if(!overwrite) {
+						return false;
+					}
+					self.delSync(newPath);
+				}
+				self.newDirSync(newPath);
+				list=orgDisk.getEntriesSync(orgPath);
+				for(subItem of list){
+					if(subItem.dir){
+						self.copySync(orgPath+"/"+subItem.name,newPath+"/"+subItem.name,overwrite,orgDisk);
+					}else {
+						let tgtPath=newPath+"/"+subItem.name;
+						tgtEntry=self.getEntrySync(tgtPath);
+						if(tgtEntry){
+							if(tgtEntry.dir || !overwrite){
+								continue;
+							}
+						}
+						copyOneFile(orgDisk,orgPath+"/"+subItem.name,tgtPath);
+					}
+				}
+				return true;
+			}else {
+				if(tgtEntry){
+					if(!overwrite)
+						return false;
+					if(tgtEntry.dir) {
+						throw Error(`/${self.name}/${newPath} is a dir, can't overwrite by file /${orgDisk.name}/${orgPath}`);
+					}
+				}
+				
+				copyOneFile(orgDisk,orgPath,newPath);
+				return true;
+			}
+		};
+		jaxDisk.copySync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.memDisk.copySync(...args);
+		};
+		
+		//-------------------------------------------------------------------
+		//Move a file/dir:
+		jaxMemDisk.moveSync=function (orgPath,newPath,overwrite=1,orgDisk=null){
+			this.copySync(orgPath,newPath,overwrite,orgDisk);
+			orgDisk.delSync(orgPath);
+		};
+		jaxDisk.moveSync=function(...args){
+			if(!this.memDisk){
+				throw Error(`Disk ${this.name} is not in memory to async access.`);
+			}
+			return this.moveSync.copySync(...args);
+		};
+	}
+}
+
+//***************************************************************************
+//Route
+//***************************************************************************
+{
+	//-----------------------------------------------------------------------
+	//Route request response helper:
+	JAXRouteResponse=function(body,init){
+		this.body=body;
+		if(init){
+			this.code=init.status||init.code||200;
+			this.headers=init.headers;
+		}else {
+			this.code=200;
+		}
+	};
+	JAXRouteResponse.prototype={};
+	
+	//-----------------------------------------------------------------------
+	//Construct a json response
+	JAXRouteResponse.json=function(obj,pretty=false){
+		let json=JSON.stringify(obj,null,pretty?"\t":"");
+		return new JAXRouteResponse(json,{
+			status:200,
+			headers:{
+				"Content-Type":"application/json",
+				"cache-control":"no-store"
+			},
+			
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Construct a text response
+	JAXRouteResponse.text=function(text){
+		return new JAXRouteResponse(text,{
+			status:200,
+			headers:{
+				"Content-Type":"text/plain",
+				"cache-control":"no-store"
+			},
+			
+		});
+	};
+	
+	//-----------------------------------------------------------------------
+	//Construct a file respnse
+	JAXRouteResponse.file=async function(path$1){
+		let data;
+		try {
+			data = await JAXDisk.readFile(path$1);
+		}catch(err){
+			data=null;
+		}
+		if(data){
+			let ext=path.extname(path$1);
+			let contentType,cache;
+			switch(ext){
+				default:
+					contentType = 'application/octet-stream';
+					cache="no-store";
+					break;
+				case 'txt':
+				case 'text':
+					contentType = "text/plain";
+					cache="no-store";
+					break;
+				case 'css':
+					contentType = "text/css";
+					cache="no-store";
+					break;
+				case 'json':
+					contentType = "application/json";
+					cache="no-store";
+					break;
+				case 'js':
+				case 'mjs':
+					contentType = "text/javascript";
+					cache="no-store";
+					break;
+				case 'png':
+					contentType = 'image/png';
+					cache="max-age=90, public";
+					break;
+				case 'jpg':
+					contentType = 'image/jpeg';
+					cache="max-age=90, public";
+					break;
+				case 'jpeg':
+					contentType = 'image/jpeg';
+					cache="max-age=90, public";
+					break;
+				case 'svg':
+					contentType = 'image/svg+xml';
+					cache="max-age=90, public";
+					break;
+				case 'html':
+				case 'htm':
+					contentType = 'text/html';
+					cache="no-store";
+					break;
+			}
+			return new JAXRouteResponse(data,{
+				status:200,
+				headers:{
+					"Content-Type":contentType,
+					"cache-control":cache
+				},
+				
+			});
+		}
+		return new JAXRouteResponse(`File: ${path$1} not found.`,{status:404});
+		
+	};
+}
+
 var JAXAniHtml,__Proto$e;
 const STATE_READY$3=1;
 const STATE_ANI$3=2;
@@ -5983,7 +7691,7 @@ __Proto$c=JAXAniPose.prototype=new JAXAni();
 		def=def||this.def;
 		htmlDef={
 			keyframes:[vo1,vo2],
-			duration:def.duration||time||200
+			duration:def.duration||def.time||time||200
 		};
 		if("alpha" in def) {
 			vo1.opacity = hud.alpha;
@@ -6827,7 +8535,7 @@ JAXHudBox=function(jaxEnv)
 				}
 				if(coners){
 					//style.borderRadius = "" + coner[0]+"px";
-					style.borderRadius = '${coners[0]}px ${coners[1]}px ${coners[2]}px ${coners[3]}px';
+					style.borderRadius = `${coners[0]}px ${coners[1]}px ${coners[2]}px ${coners[3]}px`;
 				}else {
 					style.borderRadius = "" + coner + "px";
 				}
@@ -8906,13 +10614,13 @@ JAXHudBtn=function(jaxEnv)
 				}else {
 					this.hudBtnOver_ = null;
 				}
-				if(hud){
+				/*if(hud){
 					this.webObj.addEventListener('mouseover', this.OnMouseOver2Binded, true);
 					this.webObj.addEventListener('mouseleave', this.OnMouseOut2Binded, true);
-				}else {
+				}else{
 					this.webObj.removeEventListener('mouseover', this.OnMouseOver2Binded, true);
 					this.webObj.removeEventListener('mouseleave', this.OnMouseOut2Binded, true);
-				}
+				}*/
 				if(curBtnState===STATE_OVER){
 					this.state=STATE_NA;
 					this.state=STATE_OVER;
@@ -9197,7 +10905,7 @@ JAXHudBtn.prototype=__Proto$7;
 					document.body.appendChild(this.labelObjDiv);
 					this.labelObjDiv.innerHTML=cssObj.labelHtml;
 					this.labelTarget_=this.labelObjDiv.firstChild;
-					this.labelTarget_.onchange=cssObj.OnLableAction;
+					this.labelTarget_.onchange=cssObj.OnLabelAction||cssObj.OnLableAction;
 				}else if(cssObj.labelFor){
 					this.isLabel=1;
 					this.labelTarget_=document.getElementById(cssObj.labelFor);
@@ -9259,6 +10967,8 @@ JAXHudBtn.prototype=__Proto$7;
 
 			//链接webObj的鼠标消息:
 			this.webObj.addEventListener('mousedown', this.OnMouseDownBinded);
+			this.webObj.addEventListener('mouseover', this.OnMouseOver2Binded, true);
+			this.webObj.addEventListener('mouseleave', this.OnMouseOut2Binded, true);
 			{
 				let hudPose, aniPose;
 				hudPose = this.hudPose;
@@ -9370,7 +11080,7 @@ JAXHudBtn.prototype=__Proto$7;
 				this.OnButtonDown&&this.OnButtonDown(e);
 				if(!fromBG && this.OnClickFunc_ && this.enable){
 					this.OnButtonUp&&this.OnButtonUp(1,e);
-					if(this.OnClickFunc_(e)){
+					if(this.OnClickFunc_(e)!==false){
 						this.state = STATE_UP;
 					}
 				}else {
@@ -13459,6 +15169,7 @@ JAXHudGroup=function(jaxEnv)
 	this.jaxClassFunc=JAXHudGroup;
 	this.x=0;this.y=0;this.w=0;this.h=0;
 	this.anchorV=0;this.anchorH=0;
+	this.autoLayout=true;
 
 	_attrChanged=0;
 
@@ -13556,6 +15267,19 @@ JAXHudGroup=function(jaxEnv)
 		this._syncWebObjAttr=function(){
 			_attrChanged=0;
 		};
+		
+		this._doLayout=function(){
+			let i,n,list,chd;
+			list=this.chdHudList_;
+			n=list.length;
+			for(i=0;i<n;i++){
+				chd=list[i];
+				if(chd.autoLayout){
+					chd._doLayout();
+				}
+			}
+		};
+		
 	}
 };
 
@@ -13896,6 +15620,7 @@ JAXUIDock=function(jaxEnv){
 				result.then(()=>{
 					ui.uiEvent=1;
 					if(preUI) {
+						preUI.OnUICovered&&preUI.OnUICovered();
 						this.OnUICovered&&this.OnUICovered(preUI);
 						if(dismissCovered) {
 							self.dismissUI(preUI);
@@ -13909,13 +15634,13 @@ JAXUIDock=function(jaxEnv){
 			}else {
 				ui.uiEvent=1;
 				if(preUI) {
+					preUI.OnUICovered&&preUI.OnUICovered();
 					this.OnUICovered&&this.OnUICovered(preUI);
 					if(dismissCovered) {
 						self.dismissUI(preUI);
 					}else if(hideCovered) {
 						self.removeChild(preUI);
 					}
-					preUI.OnUICovered&&preUI.OnUICovered();
 				}
 				this.OnUIShowed&&this.OnUIShowed(ui);
 			}
@@ -14108,8 +15833,17 @@ __Proto$1=JAXUIDock.prototype=new JAXHudObj();
 	};
 }
 
+var diskVersion = {
+	"coke": "0.0.11",
+	"-jaxweb": "0.1.0",
+	"-terminal": "0.1.07",
+	"-diskit": "0.1.8",
+	"-ccedit": "0.1.8",
+	"-desktop": "0.1.8"
+};
+
 //Auto genterated by Cody
-/*App的基础配置文件文件*/
+/*}#1FD92U5O70ExImports*/
 //----------------------------------------------------------------------------
 /*VO Object*/
 var appCfg={
@@ -14134,14 +15868,7 @@ var appCfg={
 		"desktop":0,
 		"cody":0
 	},
-	diskVersion:{
-		"coke": "0.0.9",
-		"-jaxweb": "0.1.1",
-		"-terminal": "0.0.12",
-		"-diskit": "0.1.0",
-		"-ccedit": "0.1.10",
-		"-desktop": "0.0.6"
-	}
+	diskVersion:diskVersion
 	/*}#1FD92U5O801*/
 };
 /*Cody Project Doc*/
@@ -14274,7 +16001,7 @@ appData.initData=function(jaxEnv){
 
 //Auto genterated by Cody
 /*}#1FD9CKN510Imports*/
-/*自定义数据类*/
+/*DataClass*/
 var CCFile, CCFolder, CCDisk;
 let __Proto;
 
@@ -14677,6 +16404,141 @@ let __Proto;
 	};
 	
 	//------------------------------------------------------------------------
+	//Extract Zip fast:
+	__Proto.extractZipFast=async function(tgtPath,zipFile,logger=null){
+		let dirEntries={};
+		let pmsList=[];
+		let disk,diskName,zipDir,pms,zipDirObj,dirPrefix;
+		
+		async function parseTgtPath(){
+			if(tgtPath.endsWith("/")){
+				tgtPath=tgtPath.substring(tgtPath.length-1);
+			}
+			if(!tgtPath.startsWith("/")){
+				throw Error(`Zip path ${tgtPath} is not full-path`);
+			}
+			let pos=tgtPath.indexOf("/",1);
+			if(pos>0) {
+				diskName = tgtPath.substring(1, pos);
+				zipDir = tgtPath.substring(pos + 1);
+				dirPrefix=zipDir+"/";
+			}else {
+				diskName = tgtPath.substring(1);
+				zipDir = "";
+				dirPrefix="";
+			}
+			disk = await JAXDisk.openDisk(diskName, true);
+			zipDirObj=await get$1(zipDir||".",disk.dbStore);
+			dirEntries[""]=zipDirObj;
+		}
+		function parsePath(path){
+			let pos=path.lastIndexOf("/");
+			if(pos>0){
+				return [path.substring(0,pos),path.substring(pos+1)];
+			}
+			return ["",path];
+		}
+		function getDir(dir){
+			let entry;
+			entry=dirEntries[dir];
+			if(!entry){
+				entry={};
+				dirEntries[dir]=entry;
+				if(dir) {
+					let [dirname, basename] = parsePath(dir);
+					let upperEntry = getDir(dirname);
+					let time = Date.now();
+					upperEntry[basename] = { name: basename, dir: 1, createTime: time, modifyTime: time };
+				}
+			}
+			return entry;
+		}
+		async function digestBytes(buf) {
+			let hex;
+			const hashBuffer = await crypto.subtle.digest('SHA-256', buf);     // hash the data
+			const hashArray = Array.from(new Uint8Array(hashBuffer));          // convert buffer to byte array
+			hex= hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+			return hex;
+		}
+		function writeFile(path,data){
+			let [dirname,basename]=parsePath(path);
+			let dirEntry=getDir(dirname);
+			let time=Date.now();
+			return digestBytes(data).then(byteHex=>{
+				dirEntry[basename]={name:basename,dir:0,createTime:time,modifyTime:time,size:data.byteLength,modified:true,
+						hash:byteHex};
+				return set$1(dirPrefix+path,data,disk.dbStore);
+			});
+		}
+		
+		let zipBuf=await zipFile.arrayBuffer();
+		let zip=await JSZip.loadAsync(zipBuf);
+		let fileList=[];
+		
+		await parseTgtPath();
+		
+		//disk=await JAXDisk.openDisk(diskName,true);
+		zip.forEach(async (path,zipObj)=>{
+			if(zipObj.dir){
+				if(path.endsWith("/")){
+					path=path.substring(0,path.length-1);
+				}
+				getDir(path);
+			}else {
+				fileList.push({path:path,zipObj:zipObj});
+				//let buf=await zipObj.async("uint8array");
+				//pms=writeFile(path,buf);
+				/*pms=zipObj.async("uint8array").then((buf)=>{
+					return writeFile(path,buf);
+				});*/
+				//pmsList.push(pms);
+			}
+		});
+		async function unpackFile(stub){
+			let filePath=stub.path;
+			let zipObj=stub.zipObj;
+			let buf;
+			buf=await zipObj.async("uint8array");
+			if(logger){
+				logger.state("Extracting file: "+filePath);
+			}else {
+				console.log("Extracting file: "+filePath);
+			}
+			pms=writeFile(filePath,buf).then(()=>{
+				if(logger){
+					logger.state("Extracted file: "+filePath);
+				}else {
+					console.log("Extracted file: "+filePath);
+				}
+			});
+			pmsList.push(pms);
+		}
+		for(let i=0,n=fileList.length;i<n;i++){
+			await unpackFile(fileList[i]);
+		}
+		await Promise.all(pmsList);//Wait all file write into disk
+		pmsList.splice(0);
+		let dirPath,dirEntry;
+		dirEntry=dirEntries[""];
+		delete dirEntries[""];
+		if(zipDir){
+			pms=set$1(zipDir,dirEntry,disk.dbStore);
+			pmsList.push(pms);
+		}else {
+			pms=set$1(".",dirEntry,disk.dbStore);
+			pmsList.push(pms);
+		}
+		let dirKeys=Object.keys(dirEntries);
+		for(let i=0,n=dirKeys.length;i<n;i++){
+			dirPath=dirKeys[i];
+			dirEntry=dirEntries[dirPath];
+			pms=set$1(dirPrefix+dirPath,dirEntry,disk.dbStore);
+			pmsList.push(pms);
+		}
+		return Promise.all(pmsList);
+	};
+	
+	//------------------------------------------------------------------------
 	//Download zip from URL, extract to disk by [diskName]
 	__Proto.fetchDisk=async function(zipURL,diskName,logger){
 		let self=this;
@@ -14685,9 +16547,12 @@ let __Proto;
 		return fetch(zipURL).then(res=>{
 			if(res.ok){
 				logger.log("dowloading file: "+zipURL);
-				return self.extractZip("",res,0,logger).then(()=>{
+				
+				return self.extractZipFast("/"+this.name,res,logger);
+				
+				/*return self.extractZip("",res,0,logger).then(()=>{
 					logger.log("Disk file: "+zipURL+" extracted.");
-				});
+				});*/
 			}else {
 				logger.log("Fetch file "+zipURL+" failed: "+res.status+": "+res.statusText);
 				throw "Fecth failed";
@@ -14707,11 +16572,12 @@ let __Proto;
 		}
 		disk=await JAXDisk.openDisk(diskName,1);
 		disk=new CCDisk(app.appData,disk,diskName);
-		await disk.fetchDisk(zipURL,diskName,logger);
 		await JAXDisk.setDiskAttr(diskName,"diskType","System");
+		return disk.fetchDisk(zipURL,diskName,logger);
 	};
 	/*}#1FD9DNECB0Functions*/
-}/*Cody Project Doc*/
+}
+/*Cody Project Doc*/
 //	
 //	function $$prjDoc() {
 //		return /*#{Doc*/{
@@ -14976,7 +16842,7 @@ let version=Version;
 
 //Auto genterated by Cody
 /*}#1FD9FKBJE0Imports*/
-/*自定义数据类*/
+/*DataClass*/
 var CCWorker;
 
 //*****************************************************
@@ -15054,7 +16920,7 @@ var CCWorker;
 	};
 	
 	//------------------------------------------------------------------------
-	//安装ServiceWorker
+	//Install Service-Worker
 	CCWorker.installWorker=async function(logger){
 		let reg,store,scope,version;
 		if(!CCWorker.diskPath){
@@ -15086,24 +16952,96 @@ var CCWorker;
 			}catch(e){
 				logger.log("Install worker error: "+e);
 				return false;
-			}		}
+			}
+		}
 		return true;
 	};
 	
 	//------------------------------------------------------------------------
-	//安装系统磁盘:
-	CCWorker.installDisks=async function(logger){
+	//Uninstall Service-Worker
+	CCWorker.uninstallWorker=async function(logger){
+		let scope="/";
+		let reg=await navigator.serviceWorker.getRegistration(scope);
+		logger.log("Search existing service-worker...");
+		if(reg){
+			logger.log("Found existing service-worker, unregister...");
+			await reg.unregister();
+			logger.log("Existing service-worker, unregister done.");
+		}
+		return true;
+	};
+	
+	//------------------------------------------------------------------------
+	//Install system disks:
+	CCWorker.installDisks=async function(logger,lib){
+		let pmsList=[];
 		try{
 			//Create sytem "doc" disk
 			await JAXDisk.openDisk("doc",1);
 			await JAXDisk.setDiskAttr("doc","diskType","System");
 			//安装磁盘:
-			await CCDisk.installDisk('/download/coke.zip','coke',logger);
-			await CCDisk.installDisk('/download/jaxweb.zip','-jaxweb',logger);
-			await CCDisk.installDisk('/download/terminal.zip','-terminal',logger);
+			if(!lib) {
+				pmsList.push(CCDisk.installDisk('/download/coke.zip', 'coke', logger));
+				pmsList.push(CCDisk.installDisk('/download/jaxweb.zip', '-jaxweb', logger));
+				pmsList.push(CCDisk.installDisk('/download/terminal.zip', '-terminal', logger));
+				pmsList.push(CCDisk.installDisk('/download/ccedit.zip', '-ccedit', logger));
+				pmsList.push(CCDisk.installDisk('/download/diskit.zip', '-diskit', logger));
+				pmsList.push(CCDisk.installDisk('/download/desktop.zip', '-desktop', logger));
+			}else {
+				if(!lib.coke || !lib.coke.checked){
+					logger.log("Install disk: coke");
+					pmsList.push(CCDisk.installDisk('/download/coke.zip', 'coke', logger,false));
+				}else {
+					logger.log("disk is ready: coke");
+				}
+				if(!lib.jaxweb || !lib.jaxweb.checked){
+					logger.log("Install disk: -jaxweb");
+					pmsList.push(CCDisk.installDisk('/download/jaxweb.zip', '-jaxweb', logger));
+				}else {
+					logger.log("disk is ready: -jaxweb");
+				}
+				if(!lib.terminal || !lib.terminal.checked){
+					logger.log("Install disk: -terminal");
+					pmsList.push(CCDisk.installDisk('/download/terminal.zip', '-terminal', logger));
+				}else {
+					logger.log("disk is ready: -terminal");
+				}
+				if(!lib.diskit || !lib.diskit.checked){
+					logger.log("Install disk: -diskit");
+					pmsList.push(CCDisk.installDisk('/download/diskit.zip', '-diskit', logger));
+				}else {
+					logger.log("disk is ready: -diskit");
+				}
+				if(!lib.desktop || !lib.desktop.checked){
+					logger.log("Install disk: -desktop");
+					pmsList.push(CCDisk.installDisk('/download/desktop.zip', '-desktop', logger));
+				}else {
+					logger.log("disk is ready: -desktop");
+				}
+				if(!lib.ccedit || !lib.ccedit.checked){
+					logger.log("Install disk: -ccedit");
+					pmsList.push(CCDisk.installDisk('/download/ccedit.zip', '-ccedit', logger));
+				}else {
+					logger.log("disk is ready: -ccedit");
+				}
+			}
+			await Promise.all(pmsList);
 			return true;
 		}catch(e){
 			return false;			
+		}
+	};
+	
+	//------------------------------------------------------------------------
+	//Drop all disk in sandbox
+	CCWorker.dropAllDisks=async function(logger){
+		let diskNames,diskName;
+		diskNames=await JAXDisk.getDiskNames();
+		if(diskNames){
+			for(diskName of diskNames){
+				logger.log(`Drop disk: ${diskName}`);
+				await JAXDisk.dropDisk(diskName,false);
+			}
 		}
 	};
 	
@@ -15113,7 +17051,8 @@ var CCWorker;
 		//TODO: Code this:
 	};
 	/*}#1FD9FKIR00Functions*/
-}/*Cody Project Doc*/
+}
+/*Cody Project Doc*/
 //	
 //	function $$prjDoc() {
 //		return /*#{Doc*/{
@@ -15883,18 +17822,25 @@ nextSeq=1;
 	//Exec a command line in client iframe:
 	cokeFrame.execCmd=function(text){
 		return new Promise((resolve,reject)=>{
-			let doneCbk,errorCbk;
+			let doneCbk,errorCbk,self;
+			self=this;
 			doneCbk=function(data){
-				this.inCmd=false;
-				resolve(data);
+				self.inCmd=false;
 				this.off("ExecCommandDone",doneCbk);
 				this.off("ExecCommandError",errorCbk);
+				resolve(data);
+				if(!self.inCmd){
+					self.emit("ShellIdle");
+				}
 			};
 			errorCbk=function(data){
-				this.inCmd=false;
-				resolve(data);
+				self.inCmd=false;
 				this.off("ExecCommandDone",doneCbk);
 				this.off("ExecCommandError",errorCbk);
+				resolve(data);
+				if(!self.inCmd){
+					self.emit("ShellIdle");
+				}
 			};
 			if(this.inCmd){
 				reject(new Error("CokeFrame is executing another command."));
@@ -15917,9 +17863,26 @@ nextSeq=1;
 	};
 	
 	//-----------------------------------------------------------------------
+	//Wait cmd to finish:
+	cokeFrame.waitCmd=function() {
+		return new Promise((resolve,reject)=>{
+			let doneCbk;
+			doneCbk=function(){
+				resolve();
+				this.off("ShellIdle",doneCbk);
+			};
+			if(!this.inCmd){
+				resolve();
+				return;
+			}
+			this.on("ShellIdle",doneCbk);
+		});
+	};
+	
+	//-----------------------------------------------------------------------
 	//Start user input command:
 	cokeFrame.startInputCmd=function(){
-		this.inCmd=true;
+		this.inCmd=false;
 		this.frameStub.client.postMessage({
 			msgCatalog:"CokeFrameH2C",
 			msg:"StartInputCmd",
@@ -15961,28 +17924,15 @@ nextSeq=1;
 	},false);
 }
 
-//---------------------------------------------------------------------------
-//Make a i-frame inside [div] that runs a cokeEnv with tty:
-var makeCokeFrame=function(div){
-	return new Promise((resolve,reject)=>{
-		let cfm;
-		cfm=new CokeFrame();
-		cfm.on("ClientReady",()=>{
-			resolve(cfm);
-		});
-		cfm.createFrame(div);
-	});
-};
-
 //Auto genterated by Cody
 
-const STAGE_CHECK="check";				//正在检查版本
-const STAGE_INSTALL="install";			//需要安装
-const STAGE_UPDATE="update";			//可以升级
-const STAGE_ERROR="error";				//安装/升级发生了错误
-const STAGE_CHECKED="checked";			//版本检测通过
-const STAGE_INSTALLED="installed";		//安装完成
-const STAGE_UPDATED="updated";			//升级完成
+const STAGE_CHECK="check";				//Checking versions
+const STAGE_INSTALL="install";			//Need install
+const STAGE_UPDATE="update";			//Can update
+const STAGE_ERROR="error";				//Error
+const STAGE_CHECKED="checked";			//Version all checked
+const STAGE_INSTALLED="installed";		//Install done
+const STAGE_UPDATED="updated";			//Update done
 
 //----------------------------------------------------------------------------
 //Parse URL params:
@@ -16042,22 +17992,23 @@ var UIInstall=function (app){
 		/*}#1FDAD06P72ExState*/
 	},);
 	/*#{1FDAD06P70PostState*/
+	let checkLibs=null;
 	/*}#1FDAD06P70PostState*/
 	
 	cssVO={
-		"type": "view", "hudState": state, "jaxId": "1FDAD06P70", 
-		"locked": 0, "x": 0, "y": 0, "w": "FW", "h": "FH", "autoLayout": 1, 
+		"type": "view", "hudState": state, "jaxId": "1FDAD06P70",
+		"locked": 0, "x": 0, "y": 0, "w": "FW", "h": "FH", "autoLayout": 1,
 		items: [
 			{
-				"type": "text", "jaxId": "1FDAETASS0", "id": "TextInfo", "x": 32, "y": 50, "w": 962, "h": 28, "text": "Checking dev-tools ...", "color": [0,0,0], 
+				"type": "text", "jaxId": "1FDAETASS0", "id": "TextInfo", "x": 32, "y": 50, "w": 962, "h": 28, "text": "Checking dev-tools ...", "color": [0,0,0],
 				"fontSize": appCfg.txtSize.big
 			},
 			{
-				"type": "hud", "jaxId": "1FDAETASS3", "id": "BoxVersions", "x": 32, "y": 80, "w": "FW-64", "h": "FH-190", 
+				"type": "hud", "jaxId": "1FDAETASS3", "id": "BoxVersions", "x": 32, "y": 80, "w": "FW-64", "h": "FH-190",
 				items: [
 					{
-						"type": BtnStd(app,150,"Install",null),"jaxId": "1FDAFVKI10", 
-						"locked": 0, "id": "BtnInstall", "x": 0, "y": "FH+10", 
+						"type": BtnStd(app,150,"Install",null),"jaxId": "1FDAFVKI10",
+						"locked": 0, "id": "BtnInstall", "x": 0, "y": "FH+10",
 						//函数
 						OnClick:function(){
 							/*#{1FDCD28UG0Code*/
@@ -16066,8 +18017,8 @@ var UIInstall=function (app){
 						}
 					},
 					{
-						"type": BtnStd(app,150,"Re-install",null),"jaxId": "1FDN43DEN3", 
-						"locked": 0, "id": "BtnReinstall", "x": 176, "y": "FH+10", 
+						"type": BtnStd(app,150,"Re-install",null),"jaxId": "1FDN43DEN3",
+						"locked": 0, "id": "BtnReinstall", "x": 176, "y": "FH+10",
 						//函数
 						OnClick:function(){
 							/*#{1FDN4616Q0Code*/
@@ -16078,29 +18029,29 @@ var UIInstall=function (app){
 				]
 			},
 			{
-				"type": "hud", "jaxId": "1FDCCENOJ0", "id": "BoxLog", "x": 32, "y": 80, "w": "FW-64", "h": "FH-200", 
+				"type": "hud", "jaxId": "1FDCCENOJ0", "id": "BoxLog", "x": 32, "y": 80, "w": "FW-64", "h": "FH-200",
 				items: [
 					{
-						"type": "box", "jaxId": "1FOS177MB0", "id": "BG", "x": -5, "y": -5, "w": "FW+10", "h": "FH+10", "clip": 1, "color": [255,255,255,1], "border": 1, 
-						"borderColor": [79,79,79,1], "coner": 4, "shadow": 1, "shadowX": 0, "shadowBlur": 8, "shadowColor": [0,0,0,0.5], 
+						"type": "box", "jaxId": "1FOS177MB0", "id": "BG", "x": -5, "y": -5, "w": "FW+10", "h": "FH+10", "clip": 1, "color": [255,255,255,1], "border": 1,
+						"borderColor": [79,79,79,1], "coner": 4, "shadow": 1, "shadowX": 0, "shadowBlur": 8, "shadowColor": [0,0,0,0.5],
 						items: [
 							{
-								"type": "box", "jaxId": "1FOS47NBG0", "x": 0, "y": 0, "w": "FW", "h": 24, "color": [255,255,255,1], "borderColor": [56,56,56,1], "gradient": "linear-gradient(#E8E8E8, #B0B0B0)", 
-								"shadowColor": [0,0,0,0.5], 
+								"type": "box", "jaxId": "1FOS47NBG0", "x": 0, "y": 0, "w": "FW", "h": 24, "color": [255,255,255,1], "borderColor": [56,56,56,1], "gradient": "linear-gradient(#E8E8E8, #B0B0B0)",
+								"shadowColor": [0,0,0,0.5],
 								items: [
 									{
 										"type": "box", "jaxId": "1FOS4J9FH3", "x": 0, "y": 24, "w": "FW", "h": 1, "color": [80,80,80,1], "shadowColor": [0,0,0,0.5]
 									},
 									{
-										"type": "box", "jaxId": "1FOS6C0QN0", "x": 6, "y": 4, "w": 16, "h": 16, "color": [190,190,190,1], "border": 1, "borderColor": [80,80,80,1], 
+										"type": "box", "jaxId": "1FOS6C0QN0", "x": 6, "y": 4, "w": 16, "h": 16, "color": [190,190,190,1], "border": 1, "borderColor": [80,80,80,1],
 										"coner": 8, "shadowColor": [0,0,0,0.5]
 									},
 									{
-										"type": "box", "jaxId": "1FOS6C1VI0", "x": 26, "y": 4, "w": 16, "h": 16, "color": [190,190,190,1], "border": 1, "borderColor": [80,80,80,1], 
+										"type": "box", "jaxId": "1FOS6C1VI0", "x": 26, "y": 4, "w": 16, "h": 16, "color": [190,190,190,1], "border": 1, "borderColor": [80,80,80,1],
 										"coner": 8, "shadowColor": [0,0,0,0.5]
 									},
 									{
-										"type": "box", "jaxId": "1FOS6CM6P0", "x": 46, "y": 4, "w": 16, "h": 16, "color": [190,190,190,1], "border": 1, "borderColor": [80,80,80,1], 
+										"type": "box", "jaxId": "1FOS6CM6P0", "x": 46, "y": 4, "w": 16, "h": 16, "color": [190,190,190,1], "border": 1, "borderColor": [80,80,80,1],
 										"coner": 8, "shadowColor": [0,0,0,0.5]
 									},
 									{
@@ -16109,13 +18060,13 @@ var UIInstall=function (app){
 								]
 							},
 							{
-								"type": "box", "jaxId": "1FOS9FLH20", "x": 0, "y": "FH-20", "w": "FW", "h": 20, "color": [200,200,200,1], "shadowColor": [0,0,0,0.5], 
+								"type": "box", "jaxId": "1FOS9FLH20", "x": 0, "y": "FH-20", "w": "FW", "h": 20, "color": [200,200,200,1], "shadowColor": [0,0,0,0.5],
 								items: [
 									{
 										"type": "box", "jaxId": "1FOS9GC3A0", "x": 0, "y": 0, "w": "FW", "h": 1, "color": [80,80,80,1], "shadowColor": [0,0,0,0.5]
 									},
 									{
-										"type": "text", "jaxId": "1FOS9QEC12", "id": "TxtBtm", "x": 10, "y": 0, "w": 950, "h": 20, "text": "Setup may take a moment to complete on Chrome", 
+										"type": "text", "jaxId": "1FOS9QEC12", "id": "TxtBtm", "x": 10, "y": 0, "w": 950, "h": 20, "text": "Setup may take a moment to complete on Chrome",
 										"color": [60,60,60], "alignV": 1, "fontSize": 14
 									}
 								]
@@ -16123,7 +18074,7 @@ var UIInstall=function (app){
 						]
 					},
 					{
-						"type": "text", "jaxId": "1FDCCV4S50", "id": "TxtState", "x": 100, "y": 0, "w": "FW", "h": 20, "text": "setup --- setup.sh --- 80x25", "color": [0,0,0], 
+						"type": "text", "jaxId": "1FDCCV4S50", "id": "TxtState", "x": 100, "y": 0, "w": "FW", "h": 20, "text": "setup --- setup.sh --- 80x25", "color": [0,0,0],
 						"fontSize": appCfg.txtSize.mid
 					},
 					{
@@ -16311,7 +18262,7 @@ var UIInstall=function (app){
 				self.TxtBtm.text="Work on web? Let's wrok in it!";
 			}
 			/*}#1FDAD06P70CreateFunc*/
-		
+			
 		}
 	};
 	/*#{1FDAD06P70ExViewDef*/
@@ -16322,13 +18273,41 @@ var UIInstall=function (app){
 		self.clear();
 		window.setTimeout(()=>{
 			self.title("check.sh");
+			if(appParams.clear==="true"){
+				if(appParams.debug){
+					if(!window.confirm("Are you sure to clear sandbox in localhost???")){
+						return;
+					}
+					if(!window.confirm("Are you really sure to clear sandbox in localhost???")){
+						return;
+					}
+				}
+				self.DoClear().then(()=>{
+					self.title("cleared");
+					self.log("Sandbox cleared");
+					if(appParams.install!=="false"){
+						//Not clear only, also install:
+						self.showFace("install");
+						if(!appParams.debug){
+							self.startWork();
+						}
+						return;
+					}
+					self.showFace("install");
+				});
+				return;
+			}
 			CCWorker.checkWorker().then(workerReady=>{
 				//得到JAXLib和JAXExt的版本号
 				if(workerReady){
 					self.log("Service worker installed.");
 					self.checkDisks().then((isInstalled)=>{
 						if(isInstalled){
-							document.location.href=document.location.origin+"/@desktop";
+							if(appParams.path){
+								document.location.href=document.location.origin+appParams.path;
+							}else {
+								document.location.href=document.location.origin+"/@desktop";
+							}
 						}else {
 							self.showFace("install");
 							if(!appParams.debug){
@@ -16341,19 +18320,19 @@ var UIInstall=function (app){
 					self.log("Service worker not installed.");
 					self.checkDisks().then((isInstalled)=>{
 						self.showFace("install");
-						if(!appParams.debug){
+						if (!appParams.debug) {
 							self.startWork();
 						}
 					});
 				}
 			});
-		},500);
+		},200);
 	};
 	
 	//------------------------------------------------------------------------
 	//检查系统工具磁盘:
 	cssVO.checkDisks=async function(){
-		let libs;
+		let libs,isAllChecked,isPartChecked;
 		libs=await CCWorker.checkLibs();
 		self.log("Coke: "+(libs.coke?`${libs.coke.version}, ${libs.coke.checked?"checked":"update available."}`:"not installed."));
 		self.log("JAXWeb: "+(libs.jaxweb?`${libs.jaxweb.version}, ${libs.jaxweb.checked?"checked":"update available."}`:"not installed."));
@@ -16361,13 +18340,26 @@ var UIInstall=function (app){
 		self.log("Desktop: "+(libs.desktop?`${libs.desktop.version}, ${libs.desktop.checked?"checked":"update available."}`:"not installed."));
 		self.log("Distkit: "+(libs.diskit?`${libs.diskit.version}, ${libs.diskit.checked?"checked":"update available."}`:"not installed."));
 		self.log("CCEdit: "+(libs.ccedit?`${libs.ccedit.version}, ${libs.ccedit.checked?"checked":"update available."}`:"not installed."));
-
-		return libs.coke&&libs.coke.checked&&
+		checkLibs=libs;
+		isAllChecked=libs.coke&&libs.coke.checked&&
 			libs.jaxweb&&libs.jaxweb.checked&&
 			libs.terminal&&libs.terminal.checked&&
 			libs.desktop&&libs.desktop.checked&&
 			libs.ccedit&&libs.ccedit.checked&&
 			libs.diskit&&libs.diskit.checked;
+		isPartChecked=(libs.coke&&libs.coke.checked)||
+			(libs.jaxweb&&libs.jaxweb.checked)||
+			(libs.terminal&&libs.terminal.checked)||
+			(libs.desktop&&libs.desktop.checked)||
+			(libs.ccedit&&libs.ccedit.checked)||
+			(libs.diskit&&libs.diskit.checked);
+		if(isAllChecked && isAllChecked){
+			return 2;
+		}
+		if(isPartChecked){
+			return 1;
+		}
+		return 0;
 	};
 	
 	//------------------------------------------------------------------------
@@ -16379,14 +18371,19 @@ var UIInstall=function (app){
 				return self.DoInstall();
 			case STAGE_CHECKED:
 			case STAGE_INSTALLED:
-				document.location.href=document.location.origin+"/@desktop";
+				if(appParams.path){
+					document.location.href=document.location.origin+appParams.path;
+				}else {
+					document.location.href = document.location.origin + "/@desktop";
+				}
 				break;
 		}
 	};
 	
 	//------------------------------------------------------------------------
-	//开始安装系统:
+	//Start install system:
 	cssVO.DoInstall=async function(){
+		let installPMS;
 		self.showFace("work");
 		self.clear();
 		self.title("setup-sw.sh");
@@ -16396,37 +18393,29 @@ var UIInstall=function (app){
 			return;
 		}
 		self.title("setup-disks.sh");
-		if(!await CCWorker.installDisks(self)){
-			//安装磁盘失败:
+		installPMS=CCWorker.installDisks(self,checkLibs);
+		if(!(await installPMS)){
+			//Install failed:
 			self.title("Install tool disk image failed, check logs for details");
 			return;
 		}
 		self.clear();
 		self.title("wait-sw.sh");
-		//let mod=(await import("/jaxweb/lib/CokeEnv.js"));
-		//console.log("MOD:");
-		//console.log(mod);
 		setTimeout(async ()=>{
-			self.title("setup-pkg.sh");
-			let ifm=await makeCokeFrame(self.BoxFrame.webObj);
-			console.log("Coke frame ready: "+ifm);
-			await ifm.execCmd("pkg install diskit -up");
-			console.log("Diskit installed. ");
-			
-			await ifm.execCmd("pkg install ccedit -up");
-			console.log("CCEdit installed. ");
-			
-			await ifm.execCmd("pkg install desktop -up");
-			console.log("CCEdit installed. ");
-
-			await ifm.execCmd("echo Cokecodes installed, have fun!");
-			console.log("Diskit installed. ");
-	
-			self.title("setup-fin.sh");
 			self.showFace("installed");
 			self.startWork();
-		},2500);
-		//await self.checkDisks();
+		},100);
+	};
+	
+	//------------------------------------------------------------------------
+	//Start clear sandbox:
+	cssVO.DoClear=async function(){
+		self.showFace("work");
+		self.clear();
+		self.title("clear-sw.sh");
+		await CCWorker.dropAllDisks(self);
+		await CCWorker.uninstallWorker(self);
+		return true;
 	};
 	
 	//------------------------------------------------------------------------
@@ -16435,7 +18424,7 @@ var UIInstall=function (app){
 		divLogs.innerText="";
 		divLogs.scrollTop = divLogs.scrollHeight;
 	};
-
+	
 	//------------------------------------------------------------------------
 	//Output log:
 	cssVO.log=function(text){
@@ -16447,7 +18436,7 @@ var UIInstall=function (app){
 		div.innerText=text;
 		divLogs.appendChild(div);
 		stateDiv=null;
-
+		
 		//logs+=text+"\n";
 		//divLogs.innerText=logs;
 		divLogs.scrollTop = divLogs.scrollHeight;
@@ -16474,7 +18463,7 @@ var UIInstall=function (app){
 		div.innerText=text;
 		divLogs.appendChild(div);
 		stateDiv=div;
-
+		
 		divLogs.scrollTop = divLogs.scrollHeight;
 	};
 	
@@ -17276,6 +19265,7 @@ function startApp() {
 //			"jaxId": "1FD92U5OC0", "args": {"entryUI":"\"UIInstall\"","language":"EN"}
 //		}/*Doc}#*/;
 //	}
+
 </script>
 </body>
 </html>

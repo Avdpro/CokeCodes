@@ -85,11 +85,110 @@ self.addEventListener('install',function(evt){
 	);
 });
 
+let routes={
+};
+let routeCalls={};
+let nextCallIdx=1;
+let routeClientId=0;
+
+let Clients=self.clients;
+function checkZombieStub(stub,checkTime){
+	Clients.get(stub.client.id).then(c=>{
+		if(!c){
+			stub.deadOut=true;
+		}else{
+			stub.lastCheck=checkTime;
+		}
+	});
+}
+
+const checkZombieTime=60000;//We check client alive every 60 sec.
+
+async function routeCall(evt){
+	let url,pathName,request,pos,list,routeLead,routeObj;
+	let callId=""+(nextCallIdx++);
+	let reqData;
+	let headers;
+	let timeNow=Date.now();
+	request=evt.request;
+	url=new URL(request.url);
+	pathName=url.pathname;
+	pos=pathName.indexOf("/",2);//url should starts with: /+
+	if(pos>0){
+		routeLead=pathName.substring(0,pos);
+	}else{
+		routeLead=pathName;
+	}
+	list=routes[routeLead];
+	if(list){
+		let i,n,path,stub,len,maxLen=0,maxObj=null;
+		n=list.length;
+		for(i=0;i<n;i++){
+			stub=list[i];
+			if(stub.deadOut){
+				list.splice(i,1);
+				n--;i--;
+			}else {
+				path = stub.path;
+				if (pathName.startsWith(path)) {
+					len = path.length;
+					if (len >= maxLen) {
+						maxLen = len;
+						maxObj = stub;
+					}
+				}
+			}
+		}
+		routeObj=maxObj;
+	}
+	headers={};
+	let keys;
+	keys=request.headers.keys();
+	for(let key of keys){
+		headers[key]=request.headers.get(key);
+	}
+	reqData=await request.arrayBuffer();
+	if(routeObj.lastCheck-timeNow>checkZombieTime) {
+		checkZombieStub(routeObj,timeNow);
+	}
+	return new Promise((resolve,reject)=>{
+		//register callback stub:
+		if(routeObj) {
+			routeCalls[callId] = {
+				callId: callId,
+				resolve: function (vo) {
+					let res;
+					res = new Response(vo.body, {
+						status: vo.code,
+						headers: vo.headers,
+					});
+					resolve(res);
+				}
+			};
+			//send the request to route client:
+			routeObj.client.postMessage({ msg: "RouteCall", path:routeObj.orgPath,callId:callId,
+				request:{
+					url:request.url,
+					method:request.method,
+					referrer:request.referrer,
+					headers:headers,
+					body:reqData
+				}
+			});
+		}else{
+			let res=new Response('<p>Can not find route handler!</p>', {
+				status: 404,
+				headers: { 'Content-Type': 'text/html' }
+			});
+			resolve(res);
+		}
+	});
+}
+
 //---------------------------------------------------------------------------
 //Fetch event handler:
 self.addEventListener('fetch', async (evt)=>{
 	var req,pos,reqURLObj,refURLObj,fullPath,ext;
-	var contentType;
 	
 	//Return a local-disk-path file respond:
 	async function respondLocal(disk,filePath){
@@ -106,13 +205,14 @@ self.addEventListener('fetch', async (evt)=>{
 				diskStores[disk] = diskStore = new Store('Disk_' + disk, disk);
 			}
 			return get(filePath, diskStore).then(fileObj => {
+				let contentType,cache;
 				if (fileObj instanceof Uint8Array) {
-					contentType=getCntType(filePath);
+					[contentType,cache]=getCntType(filePath);
 					return new Response(fileObj, {
 						status: 200,
 						headers: {
 							'Content-Type': contentType,
-							'cache-control': "max-age=90, public"
+							'cache-control': cache
 						}
 					});
 				} else {
@@ -285,7 +385,6 @@ self.addEventListener('fetch', async (evt)=>{
 		return new Response("",{
 			status:302,
 			headers: {
-				'Content-Type': contentType,
 				'Location':path
 			}
 		});
@@ -534,44 +633,65 @@ self.addEventListener('fetch', async (evt)=>{
 	
 	//get content-type by path's extname:
 	function getCntType(path){
-		let pos,ext,contentType;
+		let pos,ext,contentType,cache;
 		pos = path.lastIndexOf('.');
 		if (pos >= 0) {
 			ext = path.substring(pos + 1).toLowerCase();
 			switch (ext) {
 				default:
 					contentType = 'application/octet-stream';
+					cache="no-store";
 					break;
 				case 'txt':
 				case 'text':
 					contentType = "text/plain";
+					cache="no-store";
 					break;
 				case 'css':
 					contentType = "text/css";
+					cache="no-store";
 					break;
 				case 'json':
 					contentType = "application/json";
+					cache="no-store";
 					break;
 				case 'js':
 				case 'mjs':
 					contentType = "text/javascript";
+					cache="no-store";
 					break;
 				case 'png':
 					contentType = 'image/png';
+					cache="max-age=90, public"
 					break;
 				case 'jpg':
 					contentType = 'image/jpeg';
+					cache="max-age=90, public"
+					break;
+				case 'jpeg':
+					contentType = 'image/jpeg';
+					cache="max-age=90, public"
 					break;
 				case 'svg':
 					contentType = 'image/svg+xml';
+					cache="max-age=90, public"
 					break;
 				case 'html':
 				case 'htm':
 					contentType = 'text/html';
+					cache="no-store";
 					break;
 			}
 		}
-		return contentType;
+		return [contentType,cache];
+	}
+	
+	function heartBeat(){
+		return new Promise((resolve,reject)=>{
+			resolve(new Response("",{
+				status:200,	headers: {}
+			}));
+		});
 	}
 	
 	req=evt.request;
@@ -595,6 +715,15 @@ self.addEventListener('fetch', async (evt)=>{
 		ext = fullPath.substring(pos + 1).toLowerCase();
 	}else{
 		ext="";
+	}
+	if(fullPath==="/heart-beat"){
+		evt.respondWith(heartBeat());
+		return;
+	}
+	
+	if(fullPath.startsWith("/+")){
+		evt.respondWith(routeCall(evt));
+		return;
 	}
 	
 	if(checkLeadPath(reqURLObj,"/@coke/")){
@@ -627,10 +756,113 @@ self.addEventListener('fetch', async (evt)=>{
 		if(checkLeadDiskPath(reqURLObj,'/jaxweb/extern/',"-jaxweb","extern/")){
 			return;
 		}
+		if(checkLeadDiskPath(reqURLObj,'/jaxweb/utils/',"-jaxweb","utils/")){
+			return;
+		}
 		if(checkLeadDiskPath(reqURLObj,'/jaxweb/cody/',"-cody","")){
 			return;
 		}
 	}
 	
 	evt.respondWith(fetch(evt.request));
+});
+
+let watchClients=[];
+let watchIdName=0;
+
+//---------------------------------------------------------------------------
+//Handle client messages:
+self.addEventListener('message', function(event) {
+	let data=event.data;
+	let msg=data.msg;
+	let path;
+	let timeNow=Date.now();
+
+	//TODO: Remove zombie clients:
+	switch(msg){
+		case "Watch":
+			event.source.postMessage({msg:"WatchOK",watchId:(++watchIdName)});
+			watchClients.push({client:event.source,id:watchIdName,lastCheck:timeNow});
+			break;
+		case "Unwatch":{
+			let clientId,stub;
+			clientId=data.watchId;
+			for(let i=0,n=watchClients.length;i<n;i++){
+				stub=watchClients[i];
+				if(stub.id===clientId){
+					watchClients.splice(i,1);
+					//console.log("Found unwatch client, watched.");
+					stub.client.postMessage({msg:"UnwatchOK"});
+					return;
+				}
+			}
+			break;
+		}
+		case "RouteOn": {
+			let orgPath,path,stub,pos,lead,list;
+			orgPath=path=data.path;
+			if(path[0]!=="/"){
+				path="/"+path;
+			}
+			pos=path.indexOf("/",1);
+			if(pos>0){
+				lead=path.substring(0,pos);
+			}else{
+				lead=path;
+			}
+			stub={
+				path:path,
+				orgPath:orgPath,
+				client:event.source,
+				routeId:(++routeClientId),
+				lastCheck:timeNow
+			};
+			list=routes[lead];
+			if(!list) {
+				routes[lead] = [stub];
+			}else {
+				ReplaceRoute:{
+					for (let i = 0, n = list.length; i < n; i++) {
+						if (stub.path === list[i].path) {
+							list[i] = stub;
+							break ReplaceRoute;
+						}
+					}
+					list.push(stub);
+				}
+			}
+			stub.client.postMessage({msg:"RouteStart",path:orgPath,routeId:stub.routeId});
+			break;
+		}
+		case "RouteOff":
+			
+			break;
+		case "RouteRes": {
+			let callId,callStub;
+			callId=data.callId;
+			callStub=routeCalls[callId];
+			if(callStub){
+				callStub.resolve(data.res);//data.res:{code:200,contentType:"text/plain",content:"Hello world",headers:{}}
+				delete routeCalls[callId];
+			}
+			break;
+		}
+		case "WatchAct": {
+			let path,stub;
+			path=data.path;
+			for (let i = 0, n = watchClients.length; i < n; i++) {
+				stub = watchClients[i];
+				if(stub.deadOut){
+					watchClients.splice(i,1);
+					n--;i--;
+				}else {
+					stub.client.postMessage({ msg: "WatchAct", act: data.act, path: path, actor: data.actor });
+					if(timeNow-stub.lastCheck>checkZombieTime){
+						checkZombieStub(stub,timeNow);
+					}
+				}
+			}
+			break;
+		}
+	}
 });
